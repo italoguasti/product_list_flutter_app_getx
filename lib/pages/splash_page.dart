@@ -13,7 +13,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 4), () {
-      Get.toNamed('/home');
+      Get.offAllNamed('/home');
     });
     super.initState();
   }
