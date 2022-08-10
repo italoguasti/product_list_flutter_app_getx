@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:getx_lesson_one/models/product_model.dart';
 
-import '../repository/products_repository.dart';
+import '../repositories/products_repository.dart';
 
 class HomeController extends GetxController {
   List<ProductModel> products = [];
