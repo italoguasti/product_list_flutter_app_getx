@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
+                    border: Border.all(color: Colors.grey),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -56,24 +56,35 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const SizedBox(
+                              height: 20.0,
+                            ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text('title'),
-                                const SizedBox(width: 20.0),
-                                const Text('other'),
-                                const Spacer(),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.more_horiz_rounded),
+                                Expanded(
+                                  child: Text(
+                                    homeController.products[index].title,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                const Text('08/2022'),
+                                const SizedBox(width: 10.0),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: const Icon(Icons.more_horiz_rounded),
                                 ),
                               ],
                             ),
-                            const Text('type'),
-                            const SizedBox(height: 14.0),
+                            const SizedBox(height: 10.0),
+                            Text(homeController.products[index].type),
+                            const SizedBox(height: 12.0),
                             Row(
                               children: [
                                 RatingBarIndicator(
-                                  // rating: controller.products[index].rating.toDouble(),
+                                  rating: homeController.products[index].rating
+                                      .toDouble(),
                                   itemBuilder: (context, index) => const Icon(
                                     Icons.star,
                                     color: Colors.amber,
@@ -83,7 +94,8 @@ class _HomePageState extends State<HomePage> {
                                   direction: Axis.horizontal,
                                 ),
                                 const Spacer(),
-                                const Text('itemPrice'),
+                                Text(
+                                    'R\$${homeController.products[index].price}'),
                               ],
                             ),
                           ],
