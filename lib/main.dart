@@ -23,24 +23,25 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         title: 'Products',
         theme: tema.copyWith(
-            colorScheme: tema.colorScheme.copyWith(
-              primary: Colors.purple[400],
-              secondary: Colors.yellow[200],
+          colorScheme: tema.colorScheme.copyWith(
+            primary: const Color(0xFF4a00e0),
+            secondary: Colors.pink[300],
+          ),
+          appBarTheme: const AppBarTheme(
+            titleTextStyle: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 22.0,
+              fontWeight: FontWeight.bold,
             ),
-            textTheme: tema.textTheme.copyWith(
-              headline6: const TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 18.0,
-                color: Colors.black,
-              ),
+          ),
+          textTheme: tema.textTheme.copyWith(
+            bodyText1: const TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 14.0,
+              color: Colors.black,
             ),
-            appBarTheme: const AppBarTheme(
-              titleTextStyle: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 22.0,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
+          ),
+        ),
         initialRoute: '/',
         getPages: [
           GetPage(name: '/', page: () => const SplashPage()),

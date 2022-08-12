@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:getx_lesson_one/controllers/home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -46,9 +45,16 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SvgPicture.network(
-                        'https://usemobile.com.br/wp-content/uploads/2022/03/icone-apps-mobile.svg',
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * .3,
+                        height: MediaQuery.of(context).size.height * .15,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Image(
+                              fit: BoxFit.cover,
+                              image: AssetImage(
+                                  'assets/images/${homeController.products[index].filename}')),
+                        ),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * .55,
@@ -56,9 +62,7 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              height: 20.0,
-                            ),
+                            const SizedBox(height: 20.0),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -67,10 +71,16 @@ class _HomePageState extends State<HomePage> {
                                     homeController.products[index].title,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
                                   ),
                                 ),
-                                const Text('08/2022'),
                                 const SizedBox(width: 10.0),
+                                Text(
+                                  '08/2022',
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                                const SizedBox(width: 44.0),
                                 GestureDetector(
                                   onTap: () {},
                                   child: const Icon(Icons.more_horiz_rounded),
@@ -78,7 +88,10 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                             const SizedBox(height: 10.0),
-                            Text(homeController.products[index].type),
+                            Text(
+                              homeController.products[index].type,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
                             const SizedBox(height: 12.0),
                             Row(
                               children: [
@@ -95,7 +108,9 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 const Spacer(),
                                 Text(
-                                    'R\$${homeController.products[index].price}'),
+                                  'R\$${homeController.products[index].price}',
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
                               ],
                             ),
                           ],
