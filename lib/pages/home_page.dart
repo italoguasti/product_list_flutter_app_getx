@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 import 'package:getx_lesson_one/controllers/home_controller.dart';
+import 'package:getx_lesson_one/widgets/dialog_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,14 +21,44 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  colorGradientDecoration() {
+    return BoxDecoration(
+      gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: <Color>[
+            Theme.of(context).colorScheme.secondary,
+            Theme.of(context).colorScheme.primary,
+          ]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
           'Products',
         ),
-        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: colorGradientDecoration(),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        decoration: colorGradientDecoration(),
+        height: 56.0,
+        child: InkWell(
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Column(
+              children: const <Widget>[
+                Icon(Icons.home, color: Colors.white, size: 36.0),
+              ],
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 16.0),
@@ -39,11 +71,13 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width * .3,
@@ -62,35 +96,51 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(height: 20.0),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      homeController.products[index].title,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 2.0,
+                                    horizontal: 14.0,
+                                  ),
                                   child: Text(
-                                    homeController.products[index].title,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                    '08/2022',
                                     style:
                                         Theme.of(context).textTheme.bodyText1,
                                   ),
                                 ),
-                                const SizedBox(width: 10.0),
-                                Text(
-                                  '08/2022',
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                                const SizedBox(width: 44.0),
                                 GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.dialog(
+                                      const DialogWidget(),
+                                      barrierColor: const Color(0xff1B1B1B)
+                                          .withOpacity(0.9),
+                                    );
+                                  },
                                   child: const Icon(Icons.more_horiz_rounded),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10.0),
-                            Text(
-                              homeController.products[index].type,
-                              style: Theme.of(context).textTheme.bodyText1,
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 2.0, horizontal: 4.0),
+                              child: Text(
+                                homeController.products[index].type,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
                             ),
                             const SizedBox(height: 12.0),
                             Row(
@@ -122,7 +172,7 @@ class _HomePageState extends State<HomePage> {
               },
               separatorBuilder: (BuildContext context, int index) {
                 return const SizedBox(
-                  height: 16.0,
+                  height: 14.0,
                 );
               },
             );

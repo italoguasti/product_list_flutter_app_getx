@@ -25,7 +25,9 @@ class _SplashPageState extends State<SplashPage> {
         child: SvgPicture.network(
           'https://usemobile.com.br/wp-content/uploads/2020/07/logo-horizontal-site-branco.svg',
           width: 120.0,
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.primary,
+          
+          // color: Colors.black,
         ),
       ),
     );
