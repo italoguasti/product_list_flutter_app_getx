@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 import 'package:getx_lesson_one/controllers/home_controller.dart';
 import 'package:getx_lesson_one/widgets/dialog_widget.dart';
 
@@ -114,10 +116,11 @@ class _HomePageState extends State<HomePage> {
                                 Container(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 2.0,
-                                    horizontal: 14.0,
+                                    horizontal: 10.0,
                                   ),
                                   child: Text(
-                                    '08/2022',
+                                    DateFormat('dd-MM-yyyy')
+                                        .format(DateTime.now()),
                                     style:
                                         Theme.of(context).textTheme.bodyText1,
                                   ),

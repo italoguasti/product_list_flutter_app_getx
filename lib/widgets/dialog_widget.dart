@@ -18,28 +18,44 @@ class DialogWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Icon(
-              Icons.abc_sharp,
-              size: 60,
+              Icons.published_with_changes_rounded,
+              size: 48,
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Edit',
+            Text(
+              'Edit or delete your product.',
               textAlign: TextAlign.center,
-              // style: AppTextTheme.title,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             const SizedBox(height: 24),
             Row(
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    child: const Text('botao1'),
+                    child: const Text(
+                      'Edit',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: ElevatedButton(
-                    child: const Text('botao2'),
+                    child: const Text(
+                      'Delete',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
