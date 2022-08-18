@@ -7,6 +7,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:getx_lesson_one/controllers/home_controller.dart';
 import 'package:getx_lesson_one/widgets/dialog_widget.dart';
 
+import '../models/product_model.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -128,7 +130,27 @@ class _HomePageState extends State<HomePage> {
                                 GestureDetector(
                                   onTap: () {
                                     Get.dialog(
-                                      const DialogWidget(),
+                                      DialogWidget(
+                                        onPressedEdit: () {
+                                          // homeController.editProduct(index);
+                                          homeController.editProduct2(
+                                            ProductModel(
+                                              title: 'Italo',
+                                              type: 'Humano',
+                                              description: 'Estagiario',
+                                              filename: '1.jpg',
+                                              height: 44,
+                                              width: 299,
+                                              price: 20,
+                                              rating: 5,
+                                            ),
+                                            index,
+                                          );
+                                        },
+                                        onPressedDelete: () {
+                                          homeController.removeProduct(index);
+                                        },
+                                      ),
                                       barrierColor: const Color(0xff1B1B1B)
                                           .withOpacity(0.9),
                                     );

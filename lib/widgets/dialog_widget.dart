@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class DialogWidget extends StatelessWidget {
-  const DialogWidget({Key? key}) : super(key: key);
+  final Function()? onPressedEdit;
+  final Function()? onPressedDelete;
+
+  const DialogWidget({
+    Key? key,
+    required this.onPressedEdit,
+    required this.onPressedDelete,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +48,10 @@ class DialogWidget extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      onPressedEdit!();
+                    },
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -56,7 +66,10 @@ class DialogWidget extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      onPressedDelete!();
+                    },
                   ),
                 ),
               ],
