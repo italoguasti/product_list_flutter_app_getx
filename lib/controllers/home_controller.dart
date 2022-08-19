@@ -21,4 +21,9 @@ class HomeController extends GetxController {
     products[index] = productModel;
     update();
   }
+
+  addProduct(ProductModel productModel) {
+    products.add(productModel);
+    update();
+  }
 }

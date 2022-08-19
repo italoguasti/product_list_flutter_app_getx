@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getx_lesson_one/models/product_model.dart';
 
+import '../controllers/home_controller.dart';
 import '../widgets/gradient_color_widget.dart';
+import '../widgets/input_text.dart';
 
 class CreateProductPage extends StatefulWidget {
   const CreateProductPage({Key? key}) : super(key: key);
@@ -10,6 +14,19 @@ class CreateProductPage extends StatefulWidget {
 }
 
 class _CreateProductPageState extends State<CreateProductPage> {
+  final _typeController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _priceController = TextEditingController();
+  late HomeController homeController;
+
+  @override
+  void initState() {
+    final map = Get.arguments as Map;
+    homeController = map['controller'];
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,36 +44,36 @@ class _CreateProductPageState extends State<CreateProductPage> {
         child: Column(
           children: [
             const SizedBox(height: 8.0),
-            TextFormField(
-              autocorrect: false,
-              enableSuggestions: false,
-              decoration: const InputDecoration(
-                labelText: 'Type',
-                border: OutlineInputBorder(),
-              ),
+            InputText(
+              labelText: 'Type',
+              controller: _typeController,
             ),
             const SizedBox(height: 8.0),
-            TextFormField(
-              autocorrect: false,
-              enableSuggestions: false,
-              decoration: const InputDecoration(
-                labelText: 'Title',
-                border: OutlineInputBorder(),
-              ),
+            InputText(
+              labelText: 'Title',
+              controller: _titleController,
             ),
             const SizedBox(height: 8.0),
-            TextFormField(
-              autocorrect: false,
-              enableSuggestions: false,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Price',
-                border: OutlineInputBorder(),
-              ),
+            InputText(
+              labelText: 'Price',
+              controller: _priceController,
             ),
             const SizedBox(height: 20.0),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                final productModel = ProductModel(
+                  title: _titleController.text,
+                  type: _typeController.text,
+                  description: 'Estagiario',
+                  filename: '1.jpg',
+                  height: 44,
+                  width: 299,
+                  price: double.parse(_priceController.text),
+                  rating: 1,
+                );
+                homeController.addProduct(productModel);
+                Get.back();
+              },
               child: Text(
                 'Add',
                 style: Theme.of(context).textTheme.bodyText2,

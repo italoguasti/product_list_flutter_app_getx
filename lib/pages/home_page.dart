@@ -38,21 +38,6 @@ class _HomePageState extends State<HomePage> {
           decoration: gradientColorWidget(),
         ),
       ),
-      // bottomNavigationBar: Container(
-      //   decoration: gradientColorWidget(),
-      //   height: 56.0,
-      //   child: InkWell(
-      //     onTap: () {},
-      //     child: Padding(
-      //       padding: const EdgeInsets.only(top: 10.0),
-      //       child: Column(
-      //         children: const <Widget>[
-      //           Icon(Icons.home, color: Colors.white, size: 36.0),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
       body: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 16.0),
         child: AnimatedBuilder(
@@ -194,7 +179,8 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
-          Get.toNamed('/createProduct');
+          Get.toNamed('/createProduct',
+              arguments: {'controller': homeController});
         }),
         backgroundColor: const Color(0xFF4a00e0),
         child: const Icon(Icons.add),
