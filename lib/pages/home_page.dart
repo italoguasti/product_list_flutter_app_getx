@@ -8,6 +8,7 @@ import 'package:getx_lesson_one/controllers/home_controller.dart';
 import 'package:getx_lesson_one/widgets/dialog_widget.dart';
 
 import '../models/product_model.dart';
+import '../widgets/gradient_color_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,18 +26,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  colorGradientDecoration() {
-    return BoxDecoration(
-      gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: <Color>[
-            Theme.of(context).colorScheme.secondary,
-            Theme.of(context).colorScheme.primary,
-          ]),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,11 +35,11 @@ class _HomePageState extends State<HomePage> {
           'Products',
         ),
         flexibleSpace: Container(
-          decoration: colorGradientDecoration(),
+          decoration: gradientColorWidget(),
         ),
       ),
       bottomNavigationBar: Container(
-        decoration: colorGradientDecoration(),
+        decoration: gradientColorWidget(),
         height: 56.0,
         child: InkWell(
           onTap: () {},
@@ -132,8 +121,7 @@ class _HomePageState extends State<HomePage> {
                                     Get.dialog(
                                       DialogWidget(
                                         onPressedEdit: () {
-                                          // homeController.editProduct(index);
-                                          homeController.editProduct2(
+                                          homeController.editProduct(
                                             ProductModel(
                                               title: 'Italo',
                                               type: 'Humano',

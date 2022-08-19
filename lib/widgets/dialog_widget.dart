@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DialogWidget extends StatelessWidget {
   final Function()? onPressedEdit;
@@ -50,7 +51,9 @@ class DialogWidget extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      onPressedEdit!();
+                      Get.toNamed('/editProduct');
+                      // onPressedEdit!();
+                      //O onPressed acima é a função para edição do produto.
                     },
                   ),
                 ),

@@ -17,26 +17,7 @@ class HomeController extends GetxController {
     update();
   }
 
-  editProduct(int index) {
-    for (int i = 0; i <= products.length; i++) {
-      if (index == i) {
-        final productModel = ProductModel(
-          title: 'Italo',
-          type: 'Humano',
-          description: 'Estagiario',
-          filename: '1.jpg',
-          height: 44,
-          width: 299,
-          price: 20,
-          rating: 5,
-        );
-        products[i] = productModel;
-      }
-    }
-    update();
-  }
-
-  editProduct2(ProductModel productModel, int index) {
+  editProduct(ProductModel productModel, int index) {
     products[index] = productModel;
     update();
   }

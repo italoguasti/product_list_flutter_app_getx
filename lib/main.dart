@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:getx_lesson_one/pages/create_product_page.dart';
+import 'package:getx_lesson_one/pages/edit_product_page.dart';
 import 'package:getx_lesson_one/pages/home_page.dart';
 import 'package:getx_lesson_one/pages/splash_page.dart';
 import 'firebase_options.dart';
@@ -46,6 +48,8 @@ class MyApp extends StatelessWidget {
         getPages: [
           GetPage(name: '/', page: () => const SplashPage()),
           GetPage(name: '/home', page: () => const HomePage()),
+          GetPage(name: '/editProduct', page: () => const EditProductPage()),
+          GetPage(name: '/createProduct', page: () => const CreateProductPage()),
         ]);
   }
 }
