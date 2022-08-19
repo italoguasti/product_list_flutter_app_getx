@@ -22,8 +22,48 @@ class _EditProductPageState extends State<EditProductPage> {
           decoration: gradientColorWidget(),
         ),
       ),
-      body: Column(
-        children: [Container()],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 8.0),
+            TextFormField(
+              autocorrect: false,
+              enableSuggestions: false,
+              decoration: const InputDecoration(
+                labelText: 'Type',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            TextFormField(
+              autocorrect: false,
+              enableSuggestions: false,
+              decoration: const InputDecoration(
+                labelText: 'Title',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            TextFormField(
+              autocorrect: false,
+              enableSuggestions: false,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: 'Price',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                'Confirm edit',
+                style: Theme.of(context).textTheme.bodyText2,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

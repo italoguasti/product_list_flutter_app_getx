@@ -42,6 +42,12 @@ class MyApp extends StatelessWidget {
               fontSize: 14.0,
               color: Colors.black,
             ),
+            bodyText2: const TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF4a00e0),
+            ),
           ),
         ),
         initialRoute: '/',
@@ -49,7 +55,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/', page: () => const SplashPage()),
           GetPage(name: '/home', page: () => const HomePage()),
           GetPage(name: '/editProduct', page: () => const EditProductPage()),
-          GetPage(name: '/createProduct', page: () => const CreateProductPage()),
+          GetPage(
+              name: '/createProduct', page: () => const CreateProductPage()),
         ]);
   }
 }
