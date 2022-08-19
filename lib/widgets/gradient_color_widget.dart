@@ -8,6 +8,7 @@ gradientColorWidget() {
         colors: <Color>[
           Color(0xff4158bbf),
           Color(0xFF4a00e0),
+          // Colors.black,
         ]),
   );
 }
