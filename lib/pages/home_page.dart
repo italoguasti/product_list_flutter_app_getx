@@ -7,7 +7,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:getx_lesson_one/controllers/home_controller.dart';
 import 'package:getx_lesson_one/widgets/dialog_widget.dart';
 
-import '../models/product_model.dart';
 import '../widgets/gradient_color_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -106,19 +105,13 @@ class _HomePageState extends State<HomePage> {
                                     Get.dialog(
                                       DialogWidget(
                                         onPressedEdit: () {
-                                          homeController.editProduct(
-                                            ProductModel(
-                                              title: 'Italo',
-                                              type: 'Humano',
-                                              description: 'Estagiario',
-                                              filename: '1.jpg',
-                                              height: 44,
-                                              width: 299,
-                                              price: 20,
-                                              rating: 5,
-                                            ),
-                                            index,
-                                          );
+                                          Get.toNamed('/editProduct',
+                                              arguments: {
+                                                'controller': homeController,
+                                                'productModel': homeController
+                                                    .products[index],
+                                                'index': index,
+                                              });
                                         },
                                         onPressedDelete: () {
                                           homeController.removeProduct(index);

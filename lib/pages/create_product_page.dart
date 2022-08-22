@@ -23,7 +23,6 @@ class _CreateProductPageState extends State<CreateProductPage> {
   void initState() {
     final map = Get.arguments as Map;
     homeController = map['controller'];
-
     super.initState();
   }
 
@@ -64,12 +63,12 @@ class _CreateProductPageState extends State<CreateProductPage> {
                 final productModel = ProductModel(
                   title: _titleController.text,
                   type: _typeController.text,
-                  description: 'Estagiario',
+                  description: 'Test1',
                   filename: '1.jpg',
-                  height: 44,
-                  width: 299,
+                  height: 20,
+                  width: 98,
                   price: double.parse(_priceController.text),
-                  rating: 1,
+                  rating: 5,
                 );
                 homeController.addProduct(productModel);
                 Get.back();
