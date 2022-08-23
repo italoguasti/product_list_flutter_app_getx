@@ -4,7 +4,7 @@ import 'package:getx_lesson_one/models/product_model.dart';
 
 import '../controllers/home_controller.dart';
 import '../widgets/gradient_color_widget.dart';
-import '../widgets/input_text.dart';
+import '../widgets/input_text_widget.dart';
 
 class CreateProductPage extends StatefulWidget {
   const CreateProductPage({Key? key}) : super(key: key);

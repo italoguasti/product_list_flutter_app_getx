@@ -22,12 +22,10 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SvgPicture.network(
-          'https://usemobile.com.br/wp-content/uploads/2020/07/logo-horizontal-site-branco.svg',
+        child: SvgPicture.asset(
+          'assets/images/use_image_svg.svg',
           width: 120.0,
           color: Theme.of(context).colorScheme.primary,
-          
-          // color: Colors.black,
         ),
       ),
     );
