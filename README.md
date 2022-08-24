@@ -7,8 +7,10 @@ A flutter project for studies developed using:
   - pub.dev
   - GetX (route management and state management)
   - MVC
+  
+This app displays a list of products where you can add, edit or delete them.
 
-## Getting Started
+# Getting Started
 
 This project is a starting point for a Flutter application.
 
