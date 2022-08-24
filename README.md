@@ -1,6 +1,11 @@
 # getx_lesson_one
 
-A new Flutter project.
+A flutter project for studies developed using:
+
+  - Github
+  - Firebase Realtime DB
+  - pub.dev
+  - GetX (route management and state management).
 
 ## Getting Started
 
