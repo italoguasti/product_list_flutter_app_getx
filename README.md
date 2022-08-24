@@ -1,4 +1,4 @@
-# getx_lesson_one
+# product_list_getx
 
 A flutter project for studies developed using:
 
