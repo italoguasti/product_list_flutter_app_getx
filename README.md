@@ -2,11 +2,11 @@
 
 A flutter project for studies developed using:
 
-  - Github
-  - Firebase Realtime DB
-  - pub.dev
-  - GetX (route management and state management)
   - MVC
+  - Github
+  - pub.dev
+  - Firebase Realtime DB
+  - GetX (route management and state management)
   
 This app displays a list of products where you can add, edit or delete them.
 
