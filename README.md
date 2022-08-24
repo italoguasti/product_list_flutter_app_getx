@@ -5,7 +5,8 @@ A flutter project for studies developed using:
   - Github
   - Firebase Realtime DB
   - pub.dev
-  - GetX (route management and state management).
+  - GetX (route management and state management)
+  - MVC
 
 ## Getting Started
 
