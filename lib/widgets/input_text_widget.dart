@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
 
-class InputText extends StatelessWidget {
+class InputTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
+  final TextInputType textInputType;
+  final TextInputAction textInputAction;
+  // final Function(String?)? onSaved;
 
-  const InputText({
+  const InputTextFormField({
     Key? key,
     required this.labelText,
     required this.controller,
+    required this.textInputType,
+    required this.textInputAction,
+    // required this.onSaved,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      autocorrect: false,
-      enableSuggestions: false,
-      keyboardType: TextInputType.number,
+      keyboardType: textInputType,
+      textInputAction: textInputAction,
+      // onSaved: onSaved,
       decoration: InputDecoration(
         labelText: labelText,
         border: const OutlineInputBorder(),
       ),
+      autocorrect: false,
+      enableSuggestions: false,
     );
   }
 }

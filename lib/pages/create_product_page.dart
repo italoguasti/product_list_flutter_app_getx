@@ -17,6 +17,10 @@ class _CreateProductPageState extends State<CreateProductPage> {
   final _typeController = TextEditingController();
   final _titleController = TextEditingController();
   final _priceController = TextEditingController();
+  final _ratingController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
   late HomeController homeController;
 
   @override
@@ -40,45 +44,68 @@ class _CreateProductPageState extends State<CreateProductPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 8.0),
-            InputText(
-              labelText: 'Type',
-              controller: _typeController,
-            ),
-            const SizedBox(height: 8.0),
-            InputText(
-              labelText: 'Title',
-              controller: _titleController,
-            ),
-            const SizedBox(height: 8.0),
-            InputText(
-              labelText: 'Price',
-              controller: _priceController,
-            ),
-            const SizedBox(height: 20.0),
-            TextButton(
-              onPressed: () {
-                final productModel = ProductModel(
-                  title: _titleController.text,
-                  type: _typeController.text,
-                  description: 'Test1',
-                  filename: '1.jpg',
-                  height: 20,
-                  width: 98,
-                  price: double.parse(_priceController.text),
-                  rating: 5,
-                );
-                homeController.addProduct(productModel);
-                Get.back();
-              },
-              child: Text(
-                'Add',
-                style: Theme.of(context).textTheme.bodyText2,
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              const SizedBox(height: 8.0),
+              // InputTextFormField(
+              //   labelText: 'Type',
+              //   controller: _typeController,
+              //   textInputType: TextInputType.text,
+              //   textInputAction: TextInputAction.next,
+              // ),
+              // const SizedBox(height: 8.0),
+              // InputTextFormField(
+              //   labelText: 'Title',
+              //   controller: _titleController,
+              //   textInputType: TextInputType.text,
+              //   textInputAction: TextInputAction.next,
+              // ),
+              // const SizedBox(height: 8.0),
+              // InputTextFormField(
+              //   labelText: 'Price',
+              //   controller: _priceController,
+              //   textInputType: TextInputType.number,
+              //   textInputAction: TextInputAction.next,
+              // ),
+              // const SizedBox(height: 8.0),
+              // InputTextFormField(
+              //   labelText: 'Rating',
+              //   controller: _ratingController,
+              //   textInputType: TextInputType.number,
+              //   textInputAction: TextInputAction.next,
+              // ),
+              // const SizedBox(height: 8.0),
+              // InputTextFormField(
+              //   labelText: 'Description',
+              //   controller: _descriptionController,
+              //   textInputType: TextInputType.text,
+              //   textInputAction: TextInputAction.done,
+              // ),
+              const SizedBox(height: 14.0),
+              TextButton(
+                onPressed: () {
+                  final productModel = ProductModel(
+                    title: _titleController.text,
+                    type: _typeController.text,
+                    description: 'Test1',
+                    filename: '1.jpg',
+                    height: 20,
+                    width: 98,
+                    price: double.parse(_priceController.text),
+                    rating: 5,
+                  );
+                  homeController.addProduct(productModel);
+                  Get.back();
+                },
+                child: Text(
+                  'Add',
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

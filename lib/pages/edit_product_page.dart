@@ -17,6 +17,16 @@ class _EditProductPageState extends State<EditProductPage> {
   final _typeController = TextEditingController();
   final _titleController = TextEditingController();
   final _priceController = TextEditingController();
+  final _ratingController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  final _titleFocus = FocusNode();
+  final _typeFocus = FocusNode();
+  final _priceFocus = FocusNode();
+  final _ratingFocus = FocusNode();
+  final _descriptionFocus = FocusNode();
+
   late HomeController homeController;
   late ProductModel productModel;
   late int index;
@@ -28,10 +38,11 @@ class _EditProductPageState extends State<EditProductPage> {
     productModel = map['productModel'];
     index = map['index'];
 
-
-    _typeController.text = productModel.type;
     _titleController.text = productModel.title;
+    _typeController.text = productModel.type;
+    _descriptionController.text = productModel.description;
     _priceController.text = productModel.price.toString();
+    _ratingController.text = productModel.rating.toString();
     super.initState();
   }
 
@@ -48,46 +59,69 @@ class _EditProductPageState extends State<EditProductPage> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 8.0),
-            InputText(
-              labelText: 'Type',
-              controller: _typeController,
-            ),
-            const SizedBox(height: 8.0),
-            InputText(
-              labelText: 'Title',
-              controller: _titleController,
-            ),
-            const SizedBox(height: 8.0),
-            InputText(
-              labelText: 'Price',
-              controller: _priceController,
-            ),
-            const SizedBox(height: 20.0),
-            TextButton(
-              onPressed: () {
-                final productModel = ProductModel(
-                  title: _titleController.text,
-                  type: _typeController.text,
-                  description: 'TestEdit',
-                  filename: '3.jpg',
-                  height: 40,
-                  width: 196,
-                  price: double.parse(_priceController.text),
-                  rating: 5,
-                );
-                homeController.editProduct(productModel, index);
-                Get.back();
-              },
-              child: Text(
-                'Confirm edit',
-                style: Theme.of(context).textTheme.bodyText2,
+        padding: const EdgeInsets.all(15.0),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              // InputTextFormField(
+              //   labelText: 'Title',
+              //   controller: _titleController,
+              //   textInputType: TextInputType.text,
+              //   textInputAction: TextInputAction.next,
+              // ),
+              // const SizedBox(height: 8.0),
+              // InputTextFormField(
+              //   labelText: 'Type',
+              //   controller: _typeController,
+              //   textInputType: TextInputType.text,
+              //   textInputAction: TextInputAction.next,
+              // ),
+              // const SizedBox(height: 8.0),
+              // InputTextFormField(
+              //   labelText: 'Price',
+              //   controller: _priceController,
+              //   textInputType: TextInputType.number,
+              //   textInputAction: TextInputAction.next,
+              // ),
+              // const SizedBox(height: 8.0),
+              // InputTextFormField(
+              //   labelText: 'Rating',
+              //   controller: _ratingController,
+              //   textInputType: TextInputType.number,
+              //   textInputAction: TextInputAction.next,
+              // ),
+              // const SizedBox(height: 8.0),
+              InputTextFormField(
+                labelText: 'Description',
+                controller: _descriptionController,
+                textInputType: TextInputType.text,
+                textInputAction: TextInputAction.done,
+                // onSaved: (description) => _descriptionController = description ?? '',
               ),
-            ),
-          ],
+              const SizedBox(height: 14.0),
+              TextButton(
+                onPressed: () {
+                  final productModel = ProductModel(
+                    title: _titleController.text,
+                    type: _typeController.text,
+                    description: 'TestEdit',
+                    filename: '3.jpg',
+                    height: 40,
+                    width: 196,
+                    price: double.parse(_priceController.text),
+                    rating: 5,
+                  );
+                  homeController.editProduct(productModel, index);
+                  Get.back();
+                },
+                child: Text(
+                  'Confirm edit',
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
