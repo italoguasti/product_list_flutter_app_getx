@@ -1,8 +1,16 @@
-# getx_lesson_one
+# product_list_getx
 
-A new Flutter project.
+A flutter project for studies developed using:
 
-## Getting Started
+  - MVC
+  - Github
+  - pub.dev
+  - Firebase Realtime DB
+  - GetX (route management and state management)
+  
+This app displays a list of products where you can add, edit or delete them.
+
+# Getting Started
 
 This project is a starting point for a Flutter application.
 
