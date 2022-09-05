@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../theme/app_colors.dart';
+
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
@@ -25,7 +27,7 @@ class _SplashPageState extends State<SplashPage> {
         child: SvgPicture.asset(
           'assets/images/use_image_svg.svg',
           width: 120.0,
-          color: Theme.of(context).colorScheme.primary,
+          color: AppColors.primaryColor,
         ),
       ),
     );

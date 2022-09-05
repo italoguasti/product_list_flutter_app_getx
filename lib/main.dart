@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:getx_lesson_one/pages/create_product_page.dart';
-import 'package:getx_lesson_one/pages/edit_product_page.dart';
+import 'package:getx_lesson_one/pages/create_page.dart';
+import 'package:getx_lesson_one/pages/edit_page.dart';
 import 'package:getx_lesson_one/pages/home_page.dart';
 import 'package:getx_lesson_one/pages/splash_page.dart';
 import 'firebase_options.dart';
+import 'theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,32 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         title: 'Products',
-        theme: tema.copyWith(
-          colorScheme: tema.colorScheme.copyWith(
-            primary: const Color(0xFF4a00e0),
-            secondary: const Color(0xff4158bbf),
-          ),
-          appBarTheme: const AppBarTheme(
-            titleTextStyle: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 22.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          textTheme: tema.textTheme.copyWith(
-            bodyText1: const TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 14.0,
-              color: Colors.black,
-            ),
-            bodyText2: const TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF4a00e0),
-            ),
-          ),
-        ),
+        theme: makeAppTheme(),
         initialRoute: '/',
         getPages: [
           GetPage(name: '/', page: () => const SplashPage()),

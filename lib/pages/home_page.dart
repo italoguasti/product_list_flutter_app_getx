@@ -7,7 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:getx_lesson_one/controllers/home_controller.dart';
 import 'package:getx_lesson_one/widgets/dialog_widget.dart';
 
-import '../widgets/gradient_color_widget.dart';
+import '../theme/app_gradient_color.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
