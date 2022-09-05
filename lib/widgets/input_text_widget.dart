@@ -7,6 +7,7 @@ class InputTextFormField extends StatelessWidget {
   final TextInputAction textInputAction;
   final Function(String)? onFieldSubmitted;
   final FocusNode? focusNode;
+  final String? Function(String?)? validator;
 
   const InputTextFormField({
     Key? key,
@@ -16,6 +17,7 @@ class InputTextFormField extends StatelessWidget {
     required this.textInputAction,
     this.onFieldSubmitted,
     this.focusNode,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -30,6 +32,7 @@ class InputTextFormField extends StatelessWidget {
       ),
       focusNode: focusNode,
       onFieldSubmitted: onFieldSubmitted,
+      validator: validator,
       autocorrect: false,
       enableSuggestions: false,
     );

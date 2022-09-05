@@ -54,6 +54,24 @@ class _EditProductPageState extends State<EditProductPage> {
     _descriptionFocus.dispose();
   }
 
+  void updateProduct() {
+    if (_formKey.currentState?.validate() == true) {
+      final productModel = ProductModel(
+        title: _titleController.text,
+        type: _typeController.text,
+        description: _descriptionController.text,
+        filename: '51.jpg',
+        height: 40,
+        width: 196,
+        price: double.parse(_priceController.text),
+        rating: 5,
+      );
+
+      homeController.editProduct(productModel, index);
+      Get.back();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +97,16 @@ class _EditProductPageState extends State<EditProductPage> {
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_typeFocus),
+                validator: (titleValidate) {
+                  final title = titleValidate ?? '';
+                  if (title.trim().isEmpty) {
+                    return 'Title is obrigatory.';
+                  }
+                  if (title.trim().length < 3) {
+                    return 'The title needs at least 3 letters.';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 8.0),
               InputTextFormField(
@@ -89,25 +117,53 @@ class _EditProductPageState extends State<EditProductPage> {
                 focusNode: _typeFocus,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_priceFocus),
+                validator: (typeValidate) {
+                  final type = typeValidate ?? '';
+                  if (type.trim().isEmpty) {
+                    return 'Type is obrigatory.';
+                  }
+                  if (type.trim().length < 3) {
+                    return 'The type needs at least 3 letters.';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 8.0),
               InputTextFormField(
-                  labelText: 'Price',
-                  controller: _priceController,
-                  textInputType: TextInputType.number,
-                  textInputAction: TextInputAction.next,
-                  focusNode: _priceFocus,
-                  onFieldSubmitted: (_) =>
-                      FocusScope.of(context).requestFocus(_ratingFocus)),
+                labelText: 'Price',
+                controller: _priceController,
+                textInputType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                focusNode: _priceFocus,
+                onFieldSubmitted: (_) =>
+                    FocusScope.of(context).requestFocus(_ratingFocus),
+                validator: (priceValidate) {
+                  final priceString = priceValidate ?? '';
+                  final price = double.tryParse(priceString) ?? -1;
+                  if (price <= 0) {
+                    return 'Enter a valid price.';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 8.0),
               InputTextFormField(
-                  labelText: 'Rating',
-                  controller: _ratingController,
-                  textInputType: TextInputType.number,
-                  textInputAction: TextInputAction.next,
-                  focusNode: _ratingFocus,
-                  onFieldSubmitted: (_) =>
-                      FocusScope.of(context).requestFocus(_descriptionFocus)),
+                labelText: 'Rating',
+                controller: _ratingController,
+                textInputType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                focusNode: _ratingFocus,
+                onFieldSubmitted: (_) =>
+                    FocusScope.of(context).requestFocus(_descriptionFocus),
+                validator: (ratingValidate) {
+                  final ratingString = ratingValidate ?? '';
+                  final rating = double.tryParse(ratingString) ?? -1;
+                  if (rating <= 0 || rating > 5) {
+                    return 'Enter a valid rating.';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 8.0),
               InputTextFormField(
                 labelText: 'Description',
@@ -115,22 +171,24 @@ class _EditProductPageState extends State<EditProductPage> {
                 textInputType: TextInputType.text,
                 textInputAction: TextInputAction.done,
                 focusNode: _descriptionFocus,
+                validator: (descriptionValidate) {
+                  final description = descriptionValidate ?? '';
+                  if (description.trim().isEmpty) {
+                    return 'Description is obrigatory.';
+                  }
+                  if (description.trim().length < 6) {
+                    return 'The description needs at least 6 letters.';
+                  }
+                  return null;
+                },
+                onFieldSubmitted: (_) {
+                  updateProduct();
+                },
               ),
               const SizedBox(height: 14.0),
               TextButton(
                 onPressed: () {
-                  final productModel = ProductModel(
-                    title: _titleController.text,
-                    type: _typeController.text,
-                    description: 'TestEdit',
-                    filename: '3.jpg',
-                    height: 40,
-                    width: 196,
-                    price: double.parse(_priceController.text),
-                    rating: 5,
-                  );
-                  homeController.editProduct(productModel, index);
-                  Get.back();
+                  updateProduct();
                 },
                 child: Text(
                   'Confirm edit',
