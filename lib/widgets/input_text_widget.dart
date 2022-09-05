@@ -5,7 +5,8 @@ class InputTextFormField extends StatelessWidget {
   final String labelText;
   final TextInputType textInputType;
   final TextInputAction textInputAction;
-  // final Function(String?)? onSaved;
+  final Function(String)? onFieldSubmitted;
+  final FocusNode? focusNode;
 
   const InputTextFormField({
     Key? key,
@@ -13,7 +14,8 @@ class InputTextFormField extends StatelessWidget {
     required this.controller,
     required this.textInputType,
     required this.textInputAction,
-    // required this.onSaved,
+    this.onFieldSubmitted,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -22,11 +24,12 @@ class InputTextFormField extends StatelessWidget {
       controller: controller,
       keyboardType: textInputType,
       textInputAction: textInputAction,
-      // onSaved: onSaved,
       decoration: InputDecoration(
         labelText: labelText,
         border: const OutlineInputBorder(),
       ),
+      focusNode: focusNode,
+      onFieldSubmitted: onFieldSubmitted,
       autocorrect: false,
       enableSuggestions: false,
     );

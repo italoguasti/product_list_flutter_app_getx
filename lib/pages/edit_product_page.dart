@@ -21,7 +21,6 @@ class _EditProductPageState extends State<EditProductPage> {
   final _descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  final _titleFocus = FocusNode();
   final _typeFocus = FocusNode();
   final _priceFocus = FocusNode();
   final _ratingFocus = FocusNode();
@@ -47,6 +46,15 @@ class _EditProductPageState extends State<EditProductPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _typeFocus.dispose();
+    _priceFocus.dispose();
+    _ratingFocus.dispose();
+    _descriptionFocus.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -64,40 +72,49 @@ class _EditProductPageState extends State<EditProductPage> {
           key: _formKey,
           child: ListView(
             children: [
-              // InputTextFormField(
-              //   labelText: 'Title',
-              //   controller: _titleController,
-              //   textInputType: TextInputType.text,
-              //   textInputAction: TextInputAction.next,
-              // ),
-              // const SizedBox(height: 8.0),
-              // InputTextFormField(
-              //   labelText: 'Type',
-              //   controller: _typeController,
-              //   textInputType: TextInputType.text,
-              //   textInputAction: TextInputAction.next,
-              // ),
-              // const SizedBox(height: 8.0),
-              // InputTextFormField(
-              //   labelText: 'Price',
-              //   controller: _priceController,
-              //   textInputType: TextInputType.number,
-              //   textInputAction: TextInputAction.next,
-              // ),
-              // const SizedBox(height: 8.0),
-              // InputTextFormField(
-              //   labelText: 'Rating',
-              //   controller: _ratingController,
-              //   textInputType: TextInputType.number,
-              //   textInputAction: TextInputAction.next,
-              // ),
-              // const SizedBox(height: 8.0),
+              InputTextFormField(
+                labelText: 'Title',
+                controller: _titleController,
+                textInputType: TextInputType.text,
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (_) =>
+                    FocusScope.of(context).requestFocus(_typeFocus),
+              ),
+              const SizedBox(height: 8.0),
+              InputTextFormField(
+                labelText: 'Type',
+                controller: _typeController,
+                textInputType: TextInputType.text,
+                textInputAction: TextInputAction.next,
+                focusNode: _typeFocus,
+                onFieldSubmitted: (_) =>
+                    FocusScope.of(context).requestFocus(_priceFocus),
+              ),
+              const SizedBox(height: 8.0),
+              InputTextFormField(
+                  labelText: 'Price',
+                  controller: _priceController,
+                  textInputType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                  focusNode: _priceFocus,
+                  onFieldSubmitted: (_) =>
+                      FocusScope.of(context).requestFocus(_ratingFocus)),
+              const SizedBox(height: 8.0),
+              InputTextFormField(
+                  labelText: 'Rating',
+                  controller: _ratingController,
+                  textInputType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                  focusNode: _ratingFocus,
+                  onFieldSubmitted: (_) =>
+                      FocusScope.of(context).requestFocus(_descriptionFocus)),
+              const SizedBox(height: 8.0),
               InputTextFormField(
                 labelText: 'Description',
                 controller: _descriptionController,
                 textInputType: TextInputType.text,
                 textInputAction: TextInputAction.done,
-                // onSaved: (description) => _descriptionController = description ?? '',
+                focusNode: _descriptionFocus,
               ),
               const SizedBox(height: 14.0),
               TextButton(
