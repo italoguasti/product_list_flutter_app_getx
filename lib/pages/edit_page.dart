@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../validators/validators.dart';
+import '../validation/validation.dart';
 
 import '../controllers/home_controller.dart';
 import '../models/product_model.dart';
@@ -65,7 +65,7 @@ class _EditProductPageState extends State<EditProductPage> {
         filename: '51.jpg',
         height: 40,
         width: 196,
-        price: double.parse(_priceController.text),
+        price: double.parse(_priceController.text.extractNumbers()),
         rating: int.parse(_ratingController.text),
       );
 
@@ -111,7 +111,7 @@ class _EditProductPageState extends State<EditProductPage> {
                 focusNode: _typeFocus,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_priceFocus),
-                    validator: (v) => MyType(v!).validator(),
+                validator: (v) => MyType(v!).validator(),
               ),
               const SizedBox(height: 8.0),
               MyTextFormField(
@@ -122,7 +122,8 @@ class _EditProductPageState extends State<EditProductPage> {
                 focusNode: _priceFocus,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_ratingFocus),
-                    validator: (v) => MyPrice(v!).validator(),
+                validator: (v) => MyPrice(v!).validator(),
+                inputFormatters: [CurrencyInputFormatter()],
               ),
               const SizedBox(height: 8.0),
               MyTextFormField(
@@ -133,7 +134,7 @@ class _EditProductPageState extends State<EditProductPage> {
                 focusNode: _ratingFocus,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_descriptionFocus),
-                    validator: (v) => MyRating(v!).validator(),
+                validator: (v) => MyRating(v!).validator(),
               ),
               const SizedBox(height: 8.0),
               MyTextFormField(

@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/product_model.dart';
-import '../validators/my_description.dart';
-import '../validators/my_price.dart';
-import '../validators/my_rating.dart';
-import '../validators/my_type.dart';
-import '../validators/my_title.dart';
+import '../validation/validation.dart';
 
 import '../controllers/home_controller.dart';
 import '../theme/app_gradient_color.dart';
@@ -51,7 +47,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
         filename: '51.jpg',
         height: 10,
         width: 20,
-        price: double.parse(_priceController.text),
+        price: double.parse(_priceController.text.extractNumbers()),
         rating: int.parse(_ratingController.text),
       );
       homeController.addProduct(productModel);
@@ -109,6 +105,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_ratingFocus),
                 validator: (v) => MyPrice(v!).validator(),
+                inputFormatters: [CurrencyInputFormatter()],
               ),
               const SizedBox(height: 8.0),
               MyTextFormField(
@@ -119,7 +116,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                 focusNode: _ratingFocus,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_descriptionFocus),
-                    validator: (v) => MyRating(v!).validator(),
+                validator: (v) => MyRating(v!).validator(),
               ),
               const SizedBox(height: 8.0),
               MyTextFormField(

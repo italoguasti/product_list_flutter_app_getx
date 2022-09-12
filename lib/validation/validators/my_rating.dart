@@ -1,4 +1,4 @@
-import 'package:getx_lesson_one/validators/validate_input.dart';
+import 'package:getx_lesson_one/validation/validators/validate_input.dart';
 
 class MyRating implements ValidateInput {
   final String _value;
