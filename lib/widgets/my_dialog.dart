@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class DialogWidget extends StatelessWidget {
+class MyDialog extends StatelessWidget {
   final Function()? onPressedEdit;
   final Function()? onPressedDelete;
 
-  const DialogWidget({
+  const MyDialog({
     Key? key,
     required this.onPressedEdit,
     required this.onPressedDelete,

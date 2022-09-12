@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:getx_lesson_one/controllers/home_controller.dart';
-import 'package:getx_lesson_one/widgets/dialog_widget.dart';
+import 'package:getx_lesson_one/widgets/my_dialog.dart';
 
 import '../theme/app_gradient_color.dart';
 
@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Container(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
-                                      homeController.products[index].title,
+                                      homeController.products[index].title.toString(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style:
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                                 GestureDetector(
                                   onTap: () {
                                     Get.dialog(
-                                      DialogWidget(
+                                      MyDialog(
                                         onPressedEdit: () {
                                           Get.toNamed('/editProduct',
                                               arguments: {
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 2.0, horizontal: 4.0),
                               child: Text(
-                                homeController.products[index].type,
+                                homeController.products[index].type.toString(),
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                             ),

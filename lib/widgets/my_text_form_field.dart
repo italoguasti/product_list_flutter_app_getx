@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class InputTextFormField extends StatelessWidget {
+class MyTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
   final TextInputType textInputType;
@@ -9,7 +9,7 @@ class InputTextFormField extends StatelessWidget {
   final FocusNode? focusNode;
   final String? Function(String?)? validator;
 
-  const InputTextFormField({
+  const MyTextFormField({
     Key? key,
     required this.labelText,
     required this.controller,

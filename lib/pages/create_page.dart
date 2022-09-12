@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_lesson_one/models/product_model.dart';
+
+import '../models/product_model.dart';
+import '../validators/my_description.dart';
+import '../validators/my_price.dart';
+import '../validators/my_rating.dart';
+import '../validators/my_type.dart';
+import '../validators/my_title.dart';
 
 import '../controllers/home_controller.dart';
 import '../theme/app_gradient_color.dart';
-import '../widgets/input_text_widget.dart';
+import '../widgets/my_text_form_field.dart';
 
 class CreateProductPage extends StatefulWidget {
   const CreateProductPage({Key? key}) : super(key: key);
@@ -48,7 +54,6 @@ class _CreateProductPageState extends State<CreateProductPage> {
         price: double.parse(_priceController.text),
         rating: int.parse(_ratingController.text),
       );
-
       homeController.addProduct(productModel);
       Get.back();
     }
@@ -70,29 +75,21 @@ class _CreateProductPageState extends State<CreateProductPage> {
         padding: const EdgeInsets.all(8.0),
         child: Form(
           key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: ListView(
             children: [
               const SizedBox(height: 8.0),
-              InputTextFormField(
+              MyTextFormField(
                 labelText: 'Title',
                 controller: _titleController,
                 textInputType: TextInputType.text,
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_typeFocus),
-                validator: (titleValidate) {
-                  final title = titleValidate ?? '';
-                  if (title.trim().isEmpty) {
-                    return 'Title is obrigatory.';
-                  }
-                  if (title.trim().length < 3) {
-                    return 'The title needs at least 3 letters.';
-                  }
-                  return null;
-                },
+                validator: (v) => MyTitle(v!).validator(),
               ),
               const SizedBox(height: 8.0),
-              InputTextFormField(
+              MyTextFormField(
                 labelText: 'Type',
                 controller: _typeController,
                 textInputType: TextInputType.text,
@@ -100,19 +97,10 @@ class _CreateProductPageState extends State<CreateProductPage> {
                 focusNode: _typeFocus,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_priceFocus),
-                validator: (typeValidate) {
-                  final type = typeValidate ?? '';
-                  if (type.trim().isEmpty) {
-                    return 'Type is obrigatory.';
-                  }
-                  if (type.trim().length < 3) {
-                    return 'The type needs at least 3 letters.';
-                  }
-                  return null;
-                },
+                validator: (v) => MyType(v!).validator(),
               ),
               const SizedBox(height: 8.0),
-              InputTextFormField(
+              MyTextFormField(
                 labelText: 'Price',
                 controller: _priceController,
                 textInputType: TextInputType.number,
@@ -120,17 +108,10 @@ class _CreateProductPageState extends State<CreateProductPage> {
                 focusNode: _priceFocus,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_ratingFocus),
-                validator: (priceValidate) {
-                  final priceString = priceValidate ?? '';
-                  final price = double.tryParse(priceString) ?? -1;
-                  if (price <= 0) {
-                    return 'Enter a valid price.';
-                  }
-                  return null;
-                },
+                validator: (v) => MyPrice(v!).validator(),
               ),
               const SizedBox(height: 8.0),
-              InputTextFormField(
+              MyTextFormField(
                 labelText: 'Rating',
                 controller: _ratingController,
                 textInputType: TextInputType.number,
@@ -138,35 +119,19 @@ class _CreateProductPageState extends State<CreateProductPage> {
                 focusNode: _ratingFocus,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_descriptionFocus),
-                validator: (ratingValidate) {
-                  final ratingString = ratingValidate ?? '';
-                  final rating = double.tryParse(ratingString) ?? -1;
-                  if (rating <= 0 || rating > 5) {
-                    return 'Enter a valid rating.';
-                  }
-                  return null;
-                },
+                    validator: (v) => MyRating(v!).validator(),
               ),
               const SizedBox(height: 8.0),
-              InputTextFormField(
+              MyTextFormField(
                 labelText: 'Description',
                 controller: _descriptionController,
                 textInputType: TextInputType.text,
                 textInputAction: TextInputAction.done,
                 focusNode: _descriptionFocus,
-                validator: (descriptionValidate) {
-                  final description = descriptionValidate ?? '';
-                  if (description.trim().isEmpty) {
-                    return 'Description is obrigatory.';
-                  }
-                  if (description.trim().length < 6) {
-                    return 'The description needs at least 6 letters.';
-                  }
-                  return null;
-                },
                 onFieldSubmitted: (_) {
                   createProduct();
                 },
+                validator: (v) => MyDescription(v!).validator(),
               ),
               const SizedBox(height: 14.0),
               TextButton(
@@ -174,7 +139,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                   createProduct();
                 },
                 child: Text(
-                  'Add',
+                  'Submit',
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),

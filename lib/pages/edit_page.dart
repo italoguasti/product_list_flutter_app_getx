@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../validators/validators.dart';
+
 import '../controllers/home_controller.dart';
 import '../models/product_model.dart';
 import '../theme/app_gradient_color.dart';
-import '../widgets/input_text_widget.dart';
+import '../widgets/my_text_form_field.dart';
 
 class EditProductPage extends StatefulWidget {
   const EditProductPage({Key? key}) : super(key: key);
@@ -37,11 +39,11 @@ class _EditProductPageState extends State<EditProductPage> {
     productModel = map['productModel'];
     index = map['index'];
 
-    _titleController.text = productModel.title;
-    _typeController.text = productModel.type;
-    _descriptionController.text = productModel.description;
+    _titleController.text = productModel.title.toString();
+    _typeController.text = productModel.type.toString();
     _priceController.text = productModel.price.toString();
     _ratingController.text = productModel.rating.toString();
+    _descriptionController.text = productModel.description;
     super.initState();
   }
 
@@ -64,7 +66,7 @@ class _EditProductPageState extends State<EditProductPage> {
         height: 40,
         width: 196,
         price: double.parse(_priceController.text),
-        rating: 5,
+        rating: int.parse(_ratingController.text),
       );
 
       homeController.editProduct(productModel, index);
@@ -88,28 +90,20 @@ class _EditProductPageState extends State<EditProductPage> {
         padding: const EdgeInsets.all(15.0),
         child: Form(
           key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: ListView(
             children: [
-              InputTextFormField(
+              MyTextFormField(
                 labelText: 'Title',
                 controller: _titleController,
                 textInputType: TextInputType.text,
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_typeFocus),
-                validator: (titleValidate) {
-                  final title = titleValidate ?? '';
-                  if (title.trim().isEmpty) {
-                    return 'Title is obrigatory.';
-                  }
-                  if (title.trim().length < 3) {
-                    return 'The title needs at least 3 letters.';
-                  }
-                  return null;
-                },
+                validator: (v) => MyTitle(v!).validator(),
               ),
               const SizedBox(height: 8.0),
-              InputTextFormField(
+              MyTextFormField(
                 labelText: 'Type',
                 controller: _typeController,
                 textInputType: TextInputType.text,
@@ -117,19 +111,10 @@ class _EditProductPageState extends State<EditProductPage> {
                 focusNode: _typeFocus,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_priceFocus),
-                validator: (typeValidate) {
-                  final type = typeValidate ?? '';
-                  if (type.trim().isEmpty) {
-                    return 'Type is obrigatory.';
-                  }
-                  if (type.trim().length < 3) {
-                    return 'The type needs at least 3 letters.';
-                  }
-                  return null;
-                },
+                    validator: (v) => MyType(v!).validator(),
               ),
               const SizedBox(height: 8.0),
-              InputTextFormField(
+              MyTextFormField(
                 labelText: 'Price',
                 controller: _priceController,
                 textInputType: TextInputType.number,
@@ -137,17 +122,10 @@ class _EditProductPageState extends State<EditProductPage> {
                 focusNode: _priceFocus,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_ratingFocus),
-                validator: (priceValidate) {
-                  final priceString = priceValidate ?? '';
-                  final price = double.tryParse(priceString) ?? -1;
-                  if (price <= 0) {
-                    return 'Enter a valid price.';
-                  }
-                  return null;
-                },
+                    validator: (v) => MyPrice(v!).validator(),
               ),
               const SizedBox(height: 8.0),
-              InputTextFormField(
+              MyTextFormField(
                 labelText: 'Rating',
                 controller: _ratingController,
                 textInputType: TextInputType.number,
@@ -155,35 +133,19 @@ class _EditProductPageState extends State<EditProductPage> {
                 focusNode: _ratingFocus,
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_descriptionFocus),
-                validator: (ratingValidate) {
-                  final ratingString = ratingValidate ?? '';
-                  final rating = double.tryParse(ratingString) ?? -1;
-                  if (rating <= 0 || rating > 5) {
-                    return 'Enter a valid rating.';
-                  }
-                  return null;
-                },
+                    validator: (v) => MyRating(v!).validator(),
               ),
               const SizedBox(height: 8.0),
-              InputTextFormField(
+              MyTextFormField(
                 labelText: 'Description',
                 controller: _descriptionController,
                 textInputType: TextInputType.text,
                 textInputAction: TextInputAction.done,
                 focusNode: _descriptionFocus,
-                validator: (descriptionValidate) {
-                  final description = descriptionValidate ?? '';
-                  if (description.trim().isEmpty) {
-                    return 'Description is obrigatory.';
-                  }
-                  if (description.trim().length < 6) {
-                    return 'The description needs at least 6 letters.';
-                  }
-                  return null;
-                },
                 onFieldSubmitted: (_) {
                   updateProduct();
                 },
+                validator: (v) => MyDescription(v!).validator(),
               ),
               const SizedBox(height: 14.0),
               TextButton(
@@ -191,7 +153,7 @@ class _EditProductPageState extends State<EditProductPage> {
                   updateProduct();
                 },
                 child: Text(
-                  'Confirm edit',
+                  'Submit',
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
