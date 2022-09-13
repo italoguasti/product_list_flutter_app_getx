@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
 import '../validation/validation.dart';
@@ -6,6 +7,7 @@ import '../validation/validation.dart';
 import '../controllers/home_controller.dart';
 import '../models/product_model.dart';
 import '../theme/app_gradient_color.dart';
+import '../widgets/custom_rating.dart';
 import '../widgets/my_text_form_field.dart';
 
 class EditProductPage extends StatefulWidget {
@@ -19,8 +21,8 @@ class _EditProductPageState extends State<EditProductPage> {
   final _typeController = TextEditingController();
   final _titleController = TextEditingController();
   final _priceController = TextEditingController();
-  final _ratingController = TextEditingController();
   final _descriptionController = TextEditingController();
+  double _rating = 0.0;
   final _formKey = GlobalKey<FormState>();
 
   final _typeFocus = FocusNode();
@@ -42,7 +44,7 @@ class _EditProductPageState extends State<EditProductPage> {
     _titleController.text = productModel.title.toString();
     _typeController.text = productModel.type.toString();
     _priceController.text = productModel.price.toString();
-    _ratingController.text = productModel.rating.toString();
+    _rating = productModel.rating;
     _descriptionController.text = productModel.description;
     super.initState();
   }
@@ -66,7 +68,7 @@ class _EditProductPageState extends State<EditProductPage> {
         height: 40,
         width: 196,
         price: double.parse(_priceController.text.extractNumbers()),
-        rating: int.parse(_ratingController.text),
+        rating: _rating,
       );
 
       homeController.editProduct(productModel, index);
@@ -127,17 +129,6 @@ class _EditProductPageState extends State<EditProductPage> {
               ),
               const SizedBox(height: 8.0),
               MyTextFormField(
-                labelText: 'Rating',
-                controller: _ratingController,
-                textInputType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                focusNode: _ratingFocus,
-                onFieldSubmitted: (_) =>
-                    FocusScope.of(context).requestFocus(_descriptionFocus),
-                validator: (v) => MyRating(v!).validator(),
-              ),
-              const SizedBox(height: 8.0),
-              MyTextFormField(
                 labelText: 'Description',
                 controller: _descriptionController,
                 textInputType: TextInputType.text,
@@ -147,6 +138,13 @@ class _EditProductPageState extends State<EditProductPage> {
                   updateProduct();
                 },
                 validator: (v) => MyDescription(v!).validator(),
+              ),
+              const SizedBox(height: 12.0),
+              CustomRating(
+                initialRating: _rating,
+                onRatingUpdate: (rating) {
+                  _rating = rating;
+                },
               ),
               const SizedBox(height: 14.0),
               TextButton(

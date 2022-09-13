@@ -6,7 +6,7 @@ class ProductModel {
   final int height;
   final int width;
   final double price;
-  final int rating;
+  final double rating;
   ProductModel({
     required this.title,
     required this.type,
@@ -40,7 +40,7 @@ class ProductModel {
       height: map['height'].toInt() as int,
       width: map['width'].toInt() as int,
       price: map['price'].toDouble() as double,
-      rating: map['rating'].toInt() as int,
+      rating: map['rating'].toDouble() as double,
     );
   }
 }

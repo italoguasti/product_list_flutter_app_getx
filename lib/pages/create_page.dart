@@ -6,6 +6,7 @@ import '../validation/validation.dart';
 
 import '../controllers/home_controller.dart';
 import '../theme/app_gradient_color.dart';
+import '../widgets/custom_rating.dart';
 import '../widgets/my_text_form_field.dart';
 
 class CreateProductPage extends StatefulWidget {
@@ -19,8 +20,8 @@ class _CreateProductPageState extends State<CreateProductPage> {
   final _typeController = TextEditingController();
   final _titleController = TextEditingController();
   final _priceController = TextEditingController();
-  final _ratingController = TextEditingController();
   final _descriptionController = TextEditingController();
+  double _rating = 0.0;
 
   final _typeFocus = FocusNode();
   final _priceFocus = FocusNode();
@@ -48,7 +49,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
         height: 10,
         width: 20,
         price: double.parse(_priceController.text.extractNumbers()),
-        rating: int.parse(_ratingController.text),
+        rating: _rating,
       );
       homeController.addProduct(productModel);
       Get.back();
@@ -109,17 +110,6 @@ class _CreateProductPageState extends State<CreateProductPage> {
               ),
               const SizedBox(height: 8.0),
               MyTextFormField(
-                labelText: 'Rating',
-                controller: _ratingController,
-                textInputType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                focusNode: _ratingFocus,
-                onFieldSubmitted: (_) =>
-                    FocusScope.of(context).requestFocus(_descriptionFocus),
-                validator: (v) => MyRating(v!).validator(),
-              ),
-              const SizedBox(height: 8.0),
-              MyTextFormField(
                 labelText: 'Description',
                 controller: _descriptionController,
                 textInputType: TextInputType.text,
@@ -129,6 +119,13 @@ class _CreateProductPageState extends State<CreateProductPage> {
                   createProduct();
                 },
                 validator: (v) => MyDescription(v!).validator(),
+              ),
+              const SizedBox(height: 8.0),
+              CustomRating(
+                initialRating: _rating,
+                onRatingUpdate: (rating) {
+                  _rating = rating;
+                },
               ),
               const SizedBox(height: 14.0),
               TextButton(
