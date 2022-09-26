@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
 import '../validation/validation.dart';
@@ -71,7 +70,7 @@ class _EditProductPageState extends State<EditProductPage> {
         rating: _rating,
       );
 
-      homeController.editProduct(productModel, index);
+      // homeController.editProduct(productModel, index);
       Get.back();
     }
   }

@@ -51,7 +51,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
         price: double.parse(_priceController.text.extractNumbers()),
         rating: _rating,
       );
-      homeController.addProduct(productModel);
+      // homeController.addProduct(productModel);
       Get.back();
     }
   }

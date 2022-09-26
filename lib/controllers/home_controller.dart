@@ -1,30 +1,35 @@
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:getx_lesson_one/models/product_model.dart';
 
-import '../data/products_data.dart';
+import '../data/products_repository.dart';
+
 
 
 class HomeController extends GetxController {
-  List<ProductModel> products = [];
-  final repository = ProductsRepository();
+  final repository = ProductsRepository(Dio());
+  //Gerenciar
+  final Rx<List<ProductModel>> _products = Rx([]);
+  //Acessar lista
+  Stream<List<ProductModel>> get productsStream => _products.stream;
 
-  populateProducts() {
-    products = repository.getProducts();
-    update();
+  void findProducts() async {
+    try {
+      _products.value = await repository.findAllProducts();
+    } catch (e) {
+      print(e);
+    }
   }
 
-  removeProduct(int index) {
-    products.removeAt(index);
-    update();
-  }
+  // removeProduct(int index) {
+  //   products.removeAt(index);
+  // }
 
-  editProduct(ProductModel productModel, int index) {
-    products[index] = productModel;
-    update();
-  }
+  // editProduct(ProductModel productModel, int index) {
+  //   products[index] = productModel;
+  // }
 
-  addProduct(ProductModel productModel) {
-    products.add(productModel);
-    update();
-  }
+  // addProduct(ProductModel productModel) {
+  //   products.add(productModel);
+  // }
 }

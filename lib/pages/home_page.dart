@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_lesson_one/models/product_model.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    homeController.populateProducts();
+    homeController.findProducts();
     super.initState();
   }
 
@@ -39,11 +40,17 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 16.0),
-        child: AnimatedBuilder(
-          animation: homeController,
+        child: StreamBuilder<List<ProductModel>>(
+          stream: homeController.productsStream,
           builder: (context, snapshot) {
+            final products = snapshot.data;
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
             return ListView.separated(
-              itemCount: homeController.products.length,
+              itemCount: products!.length,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
@@ -64,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                           child: Image(
                               fit: BoxFit.cover,
                               image: AssetImage(
-                                  'assets/images/${homeController.products[index].filename}')),
+                                  'assets/images/${products[index].filename}')),
                         ),
                       ),
                       SizedBox(
@@ -80,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Container(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
-                                      homeController.products[index].title.toString(),
+                                      products[index].title.toString(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style:
@@ -108,13 +115,12 @@ class _HomePageState extends State<HomePage> {
                                           Get.toNamed('/editProduct',
                                               arguments: {
                                                 'controller': homeController,
-                                                'productModel': homeController
-                                                    .products[index],
+                                                'productModel': products[index],
                                                 'index': index,
                                               });
                                         },
                                         onPressedDelete: () {
-                                          homeController.removeProduct(index);
+                                          // homeController.removeProduct(index);
                                         },
                                       ),
                                       barrierColor: const Color(0xff1B1B1B)
@@ -129,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 2.0, horizontal: 4.0),
                               child: Text(
-                                homeController.products[index].type.toString(),
+                                products[index].type.toString(),
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                             ),
@@ -137,8 +143,7 @@ class _HomePageState extends State<HomePage> {
                             Row(
                               children: [
                                 RatingBarIndicator(
-                                  rating: homeController.products[index].rating
-                                      .toDouble(),
+                                  rating: products[index].rating.toDouble(),
                                   itemBuilder: (context, index) => const Icon(
                                     Icons.star,
                                     color: Colors.amber,
@@ -149,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 const Spacer(),
                                 Text(
-                                  'R\$${homeController.products[index].price}',
+                                  'R\$${products[index].price}',
                                   style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ],
