@@ -120,7 +120,8 @@ class _HomePageState extends State<HomePage> {
                                               });
                                         },
                                         onPressedDelete: () {
-                                          // homeController.removeProduct(index);
+                                          homeController
+                                              .removeProduct(products[index]);
                                         },
                                       ),
                                       barrierColor: const Color(0xff1B1B1B)

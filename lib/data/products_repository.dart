@@ -22,4 +22,26 @@ class ProductsRepository implements IProductsRepository {
       rethrow;
     }
   }
+
+  // @override
+  // Future<void> saveThisProduct(ProductModel productModel) async {
+  //   // bool hasId = productModel['id'] != null;
+  //   try {
+
+  //   } catch (e) {
+
+  //   }
+  // }
+
+  @override
+  Future<void> removeThisProduct(ProductModel productModel) async {
+    try {
+      await _dio.delete(
+        // Alterar title para id depois
+          'https://getx-lesson-one-default-rtdb.firebaseio.com/${productModel.title}.json');
+      print('Delete Success');
+    } catch (e) {
+      throw Exception('Failed to delet product: ${productModel.title}');
+    }
+  }
 }

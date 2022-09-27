@@ -21,9 +21,9 @@ class HomeController extends GetxController {
     }
   }
 
-  // removeProduct(int index) {
-  //   products.removeAt(index);
-  // }
+  void removeProduct(ProductModel product) async {
+    await repository.removeThisProduct(product);
+  }
 
   // editProduct(ProductModel productModel, int index) {
   //   products[index] = productModel;
