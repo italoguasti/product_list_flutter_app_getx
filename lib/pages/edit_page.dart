@@ -57,23 +57,23 @@ class _EditProductPageState extends State<EditProductPage> {
     _descriptionFocus.dispose();
   }
 
-  void updateProduct() {
-    if (_formKey.currentState?.validate() == true) {
-      final productModel = ProductModel(
-        title: _titleController.text,
-        type: _typeController.text,
-        description: _descriptionController.text,
-        filename: '51.jpg',
-        height: 40,
-        width: 196,
-        price: double.parse(_priceController.text.extractNumbers()),
-        rating: _rating,
-      );
+  // void updateProduct() {
+  //   if (_formKey.currentState?.validate() == true) {
+  //     final productModel = ProductModel(
+  //       title: _titleController.text,
+  //       type: _typeController.text,
+  //       description: _descriptionController.text,
+  //       filename: '51.jpg',
+  //       height: 40,
+  //       width: 196,
+  //       price: double.parse(_priceController.text.extractNumbers()),
+  //       rating: _rating,
+  //     );
 
-      // homeController.editProduct(productModel, index);
-      Get.back();
-    }
-  }
+  //     // homeController.editProduct(productModel, index);
+  //     Get.back();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +134,7 @@ class _EditProductPageState extends State<EditProductPage> {
                 textInputAction: TextInputAction.done,
                 focusNode: _descriptionFocus,
                 onFieldSubmitted: (_) {
-                  updateProduct();
+                  // updateProduct();
                 },
                 validator: (v) => MyDescription(v!).validator(),
               ),
@@ -148,7 +148,7 @@ class _EditProductPageState extends State<EditProductPage> {
               const SizedBox(height: 14.0),
               TextButton(
                 onPressed: () {
-                  updateProduct();
+                  // updateProduct();
                 },
                 child: Text(
                   'Submit',

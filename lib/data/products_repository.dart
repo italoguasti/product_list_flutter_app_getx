@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:getx_lesson_one/data/i_products_repository.dart';
 import 'package:getx_lesson_one/models/product_model.dart';
+import 'package:uuid/uuid.dart';
 
 class ProductsRepository implements IProductsRepository {
   final Dio _dio;
+  // final List<ProductModel> _productsList = [];
+  // List<ProductModel> get products => [..._productsList];
 
   ProductsRepository(this._dio);
 
@@ -23,25 +26,83 @@ class ProductsRepository implements IProductsRepository {
     }
   }
 
-  // @override
-  // Future<void> saveThisProduct(ProductModel productModel) async {
-  //   // bool hasId = productModel['id'] != null;
-  //   try {
+  @override
+  Future<ProductModel> saveThisProduct(ProductModel product) async {
+    // bool hasId = data['id'] != null;
 
-  //   } catch (e) {
+    // final product = ProductModel(
+    //   id: hasId ? data['id'] as String : Random().nextDouble().toString(),
+    //   title: data['title'] as String,
+    //   type: data['type'] as String,
+    //   description: data['description'] as String,
+    //   filename: data['filename'] as String,
+    //   height: data['height'] as int,
+    //   width: data['width'] as int,
+    //   price: data['price'] as double,
+    //   rating: data['rating'] as double,
+    // );
 
-  //   }
-  // }
+    if (product.id.isNotEmpty) {
+      //create functions
+      return updateThisProduct(product);
+    } else {
+      //create functions
+      return addThisProduct(product);
+    }
+  }
 
   @override
-  Future<void> removeThisProduct(ProductModel productModel) async {
+  Future<ProductModel> addThisProduct(ProductModel product) async {
+    await _dio.post(
+      'https://getx-lesson-one-default-rtdb.firebaseio.com/products.json',
+      data: product.toMap(),
+    );
+
+    final id = const Uuid().v4();
+    return ProductModel(
+      id: id,
+      title: product.title,
+      type: product.type,
+      description: product.description,
+      price: product.price,
+      rating: product.rating,
+    );
+
+    // _productsList.add(ProductModel(
+    //   id: id,
+    //   title: product.title,
+    //   type: product.type,
+    //   description: product.description,
+    //   filename: product.filename,
+    //   height: product.height,
+    //   width: product.width,
+    //   price: product.price,
+    //   rating: product.rating,
+    // ));
+  }
+
+  @override
+  Future<ProductModel> updateThisProduct(ProductModel product) async {
+    // int index = _productsList.indexWhere((p) => p.id == product.id);
+    // if (index >= 0) {
+    await _dio.patch(
+      'https://getx-lesson-one-default-rtdb.firebaseio.com/products.json',
+      data: product.toMap(),
+    );
+    // _productsList[index] = product;
+    // }
+    return product;
+  }
+
+  @override
+  Future<ProductModel> removeThisProduct(ProductModel product) async {
     try {
       await _dio.delete(
-        // Alterar title para id depois
-          'https://getx-lesson-one-default-rtdb.firebaseio.com/${productModel.title}.json');
+          'https://getx-lesson-one-default-rtdb.firebaseio.com/${product.id}.json');
       print('Delete Success');
+      return product;
     } catch (e) {
-      throw Exception('Failed to delet product: ${productModel.title}');
+      throw Exception('Failed to delet product: ${product.id}');
     }
   }
 }

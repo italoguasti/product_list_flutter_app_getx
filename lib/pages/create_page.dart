@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_lesson_one/models/product_model.dart';
 
-import '../models/product_model.dart';
 import '../validation/validation.dart';
 
 import '../controllers/home_controller.dart';
@@ -17,6 +17,7 @@ class CreateProductPage extends StatefulWidget {
 }
 
 class _CreateProductPageState extends State<CreateProductPage> {
+  var homeController = HomeController();
   final _typeController = TextEditingController();
   final _titleController = TextEditingController();
   final _priceController = TextEditingController();
@@ -30,30 +31,11 @@ class _CreateProductPageState extends State<CreateProductPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  late HomeController homeController;
-
   @override
   void initState() {
     final map = Get.arguments as Map;
     homeController = map['controller'];
     super.initState();
-  }
-
-  void createProduct() {
-    if (_formKey.currentState?.validate() == true) {
-      final productModel = ProductModel(
-        title: _titleController.text,
-        type: _typeController.text,
-        description: _descriptionController.text,
-        filename: '51.jpg',
-        height: 10,
-        width: 20,
-        price: double.parse(_priceController.text.extractNumbers()),
-        rating: _rating,
-      );
-      // homeController.addProduct(productModel);
-      Get.back();
-    }
   }
 
   @override
@@ -116,7 +98,15 @@ class _CreateProductPageState extends State<CreateProductPage> {
                 textInputAction: TextInputAction.done,
                 focusNode: _descriptionFocus,
                 onFieldSubmitted: (_) {
-                  createProduct();
+                  final product = ProductModel(
+                    id: '',
+                    title: _titleController.text,
+                    type: _typeController.text,
+                    description: _descriptionController.text,
+                    price: double.tryParse(_priceController.text) ?? 0,
+                    rating: _rating,
+                  );
+                  homeController.saveProduct(product);
                 },
                 validator: (v) => MyDescription(v!).validator(),
               ),
@@ -130,7 +120,16 @@ class _CreateProductPageState extends State<CreateProductPage> {
               const SizedBox(height: 14.0),
               TextButton(
                 onPressed: () {
-                  createProduct();
+                  final product = ProductModel(
+                    id: '',
+                    title: _titleController.text,
+                    type: _typeController.text,
+                    description: _descriptionController.text,
+                    price: double.tryParse(_priceController.text) ?? 0,
+                    rating: _rating,
+                  );
+                  homeController.saveProduct(product);
+                  // homeController.addProduct();
                 },
                 child: Text(
                   'Submit',

@@ -66,12 +66,11 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * .3,
                         height: MediaQuery.of(context).size.height * .15,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                        child: const Padding(
+                          padding: EdgeInsets.all(10.0),
                           child: Image(
                               fit: BoxFit.cover,
-                              image: AssetImage(
-                                  'assets/images/${products[index].filename}')),
+                              image: AssetImage('assets/images/0.jpg')),
                         ),
                       ),
                       SizedBox(
