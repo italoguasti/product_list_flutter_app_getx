@@ -19,7 +19,6 @@ class ProductModel {
   //Envia
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'title': title,
       'type': type,
       'description': description,

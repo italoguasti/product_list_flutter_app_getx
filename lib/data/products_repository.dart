@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:getx_lesson_one/data/i_products_repository.dart';
 import 'package:getx_lesson_one/models/product_model.dart';
-import 'package:uuid/uuid.dart';
 
 class ProductsRepository implements IProductsRepository {
   final Dio _dio;
@@ -18,9 +17,14 @@ class ProductsRepository implements IProductsRepository {
       if (response.data == 'null') {
         return [];
       }
-      return (response.data as List)
-          .map((e) => ProductModel.fromMap(e))
-          .toList();
+        final List<ProductModel>list= [];
+      (response.data as Map).forEach(
+        (key, value) {
+          final product = ProductModel.fromMap({...value, 'id': key});
+          list.add(product);
+        },
+      );
+      return list;
     } catch (e) {
       rethrow;
     }
@@ -53,12 +57,13 @@ class ProductsRepository implements IProductsRepository {
 
   @override
   Future<ProductModel> addThisProduct(ProductModel product) async {
-    await _dio.post(
+    final response = await _dio.post(
       'https://getx-lesson-one-default-rtdb.firebaseio.com/products.json',
       data: product.toMap(),
     );
+    print(response);
 
-    final id = const Uuid().v4();
+    final id = response.data['name'];
     return ProductModel(
       id: id,
       title: product.title,

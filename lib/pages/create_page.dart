@@ -33,9 +33,13 @@ class _CreateProductPageState extends State<CreateProductPage> {
 
   @override
   void initState() {
+    super.initState();
     final map = Get.arguments as Map;
     homeController = map['controller'];
-    super.initState();
+    //Revisar Listener
+    _priceController.addListener(() { 
+      print(_priceController.text);
+    });
   }
 
   @override
@@ -128,8 +132,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                     price: double.tryParse(_priceController.text) ?? 0,
                     rating: _rating,
                   );
-                  homeController.saveProduct(product);
-                  // homeController.addProduct();
+                  homeController.addProduct(product);
                 },
                 child: Text(
                   'Submit',

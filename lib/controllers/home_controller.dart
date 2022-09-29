@@ -15,6 +15,7 @@ class HomeController extends GetxController {
     try {
       _products.value = await repository.findAllProducts();
     } catch (e) {}
+    _products.refresh();
   }
 
   Future<void> saveProduct(ProductModel product) async {
@@ -26,23 +27,25 @@ class HomeController extends GetxController {
     } else {
       _products.value.add(savedProduct);
     }
-    // _products.refresh();
+    _products.refresh();
   }
 
   Future<void> removeProduct(ProductModel product) async {
     await repository.removeThisProduct(product);
     _products.value
         .removeWhere((currentProduct) => currentProduct.id == product.id);
-    // _products.refresh();
+    _products.refresh();
   }
 
   Future<void> addProduct(ProductModel product) async {
     final addProduct = await repository.addThisProduct(product);
     _products.value.add(addProduct);
+    _products.refresh();
   }
 
   Future<void> updateProduct(ProductModel product, int index) async {
     final updatedProduct = await repository.updateThisProduct(product);
     _products.value[index] = updatedProduct;
+    _products.refresh();
   }
 }
