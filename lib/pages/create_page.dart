@@ -35,11 +35,10 @@ class _CreateProductPageState extends State<CreateProductPage> {
   void initState() {
     super.initState();
     final map = Get.arguments as Map;
+    //errado
     homeController = map['controller'];
     //Revisar Listener
-    _priceController.addListener(() { 
-      print(_priceController.text);
-    });
+    _priceController.addListener(() {});
   }
 
   @override
@@ -101,17 +100,6 @@ class _CreateProductPageState extends State<CreateProductPage> {
                 textInputType: TextInputType.text,
                 textInputAction: TextInputAction.done,
                 focusNode: _descriptionFocus,
-                onFieldSubmitted: (_) {
-                  final product = ProductModel(
-                    id: '',
-                    title: _titleController.text,
-                    type: _typeController.text,
-                    description: _descriptionController.text,
-                    price: double.tryParse(_priceController.text) ?? 0,
-                    rating: _rating,
-                  );
-                  homeController.saveProduct(product);
-                },
                 validator: (v) => MyDescription(v!).validator(),
               ),
               const SizedBox(height: 8.0),
@@ -130,9 +118,11 @@ class _CreateProductPageState extends State<CreateProductPage> {
                     type: _typeController.text,
                     description: _descriptionController.text,
                     price: double.tryParse(_priceController.text) ?? 0,
+                    
                     rating: _rating,
                   );
                   homeController.addProduct(product);
+                  Navigator.of(context).pop();
                 },
                 child: Text(
                   'Submit',
