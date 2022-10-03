@@ -22,9 +22,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    homeController.findProducts();
-    
     super.initState();
+    homeController.findProducts();
   }
 
   @override
@@ -39,8 +38,7 @@ class _HomePageState extends State<HomePage> {
           decoration: gradientColorWidget(),
         ),
       ),
-      body: 
-      RefreshIndicator(
+      body: RefreshIndicator(
         onRefresh: () => homeController.findProducts(),
         child: Padding(
           padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 16.0),
@@ -74,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                             padding: EdgeInsets.all(10.0),
                             child: Image(
                                 fit: BoxFit.cover,
-                                image: AssetImage('assets/images/0.jpg')),
+                                image: AssetImage('assets/images/10.jpg')),
                           ),
                         ),
                         SizedBox(
@@ -84,7 +82,8 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Container(
@@ -93,8 +92,9 @@ class _HomePageState extends State<HomePage> {
                                         products[index].title.toString(),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style:
-                                            Theme.of(context).textTheme.bodyText1,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
                                       ),
                                     ),
                                   ),
@@ -115,14 +115,17 @@ class _HomePageState extends State<HomePage> {
                                       Get.dialog(
                                         MyDialog(
                                           onPressedEdit: () {
+                                            //Conferir o método edit
                                             Get.toNamed('/editProduct',
                                                 arguments: {
                                                   'controller': homeController,
-                                                  'productModel': products[index],
+                                                  'productModel':
+                                                      products[index],
                                                   'index': index,
                                                 });
                                           },
                                           onPressedDelete: () {
+                                            //Conferir aqui o método remove
                                             homeController
                                                 .removeProduct(products[index]);
                                           },
@@ -146,6 +149,7 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(height: 12.0),
                               Row(
                                 children: [
+                                  //Conferir esse RatingBarIndicator
                                   RatingBarIndicator(
                                     rating: products[index].rating.toDouble(),
                                     itemBuilder: (context, index) => const Icon(
@@ -159,7 +163,8 @@ class _HomePageState extends State<HomePage> {
                                   const Spacer(),
                                   Text(
                                     'R\$${products[index].price}',
-                                    style: Theme.of(context).textTheme.bodyText1,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
                                   ),
                                 ],
                               ),

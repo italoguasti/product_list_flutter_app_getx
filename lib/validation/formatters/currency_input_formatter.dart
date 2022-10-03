@@ -4,7 +4,8 @@ import 'package:intl/intl.dart';
 
 class CurrencyInputFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     final double value = double.parse(newValue.text.extractNumbers());
 
     final formatter = NumberFormat.simpleCurrency(locale: 'pt_Br');

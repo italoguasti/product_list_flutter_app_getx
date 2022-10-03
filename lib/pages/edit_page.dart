@@ -148,7 +148,7 @@ class _EditProductPageState extends State<EditProductPage> {
               const SizedBox(height: 14.0),
               TextButton(
                 onPressed: () {
-                  // updateProduct();
+                  // Passar o update product;
                 },
                 child: Text(
                   'Submit',

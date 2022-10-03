@@ -70,8 +70,7 @@ class ProductsRepository implements IProductsRepository {
   Future<ProductModel> removeThisProduct(ProductModel product) async {
     try {
       await _dio.delete(
-          'https://getx-lesson-one-default-rtdb.firebaseio.com/${product.id}.json');
-      print('Delete Success');
+          'https://getx-lesson-one-default-rtdb.firebaseio.com/products/${product.id}.json');
       return product;
     } catch (e) {
       throw Exception('Failed to delet product: ${product.id}');

@@ -35,7 +35,7 @@ class ProductModel {
       type: map['type'] as String,
       description: map['description'] as String,
       price: map['price'].toDouble() as double,
-      rating: map['rating'].toDouble() as double, 
+      rating: map['rating'].toDouble() as double,
     );
   }
 }

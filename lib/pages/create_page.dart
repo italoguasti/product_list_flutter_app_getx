@@ -35,10 +35,11 @@ class _CreateProductPageState extends State<CreateProductPage> {
   void initState() {
     super.initState();
     final map = Get.arguments as Map;
-    //errado
+
     homeController = map['controller'];
-    //Revisar Listener
-    _priceController.addListener(() {});
+
+    //Conferir com alguém se isso é necessário:
+    // _priceController.addListener(() {});
   }
 
   @override
@@ -91,7 +92,8 @@ class _CreateProductPageState extends State<CreateProductPage> {
                 onFieldSubmitted: (_) =>
                     FocusScope.of(context).requestFocus(_ratingFocus),
                 validator: (v) => MyPrice(v!).validator(),
-                inputFormatters: [CurrencyInputFormatter()],
+                //O erro do preço está no inputFormatter
+                // inputFormatters: [CurrencyInputFormatter()],
               ),
               const SizedBox(height: 8.0),
               MyTextFormField(
@@ -118,7 +120,6 @@ class _CreateProductPageState extends State<CreateProductPage> {
                     type: _typeController.text,
                     description: _descriptionController.text,
                     price: double.tryParse(_priceController.text) ?? 0,
-                    
                     rating: _rating,
                   );
                   homeController.addProduct(product);
