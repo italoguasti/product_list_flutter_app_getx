@@ -26,7 +26,6 @@ class _EditProductPageState extends State<EditProductPage> {
 
   final _typeFocus = FocusNode();
   final _priceFocus = FocusNode();
-  final _ratingFocus = FocusNode();
   final _descriptionFocus = FocusNode();
 
   late HomeController homeController;
@@ -53,27 +52,8 @@ class _EditProductPageState extends State<EditProductPage> {
     super.dispose();
     _typeFocus.dispose();
     _priceFocus.dispose();
-    _ratingFocus.dispose();
     _descriptionFocus.dispose();
   }
-
-  // void updateProduct() {
-  //   if (_formKey.currentState?.validate() == true) {
-  //     final productModel = ProductModel(
-  //       title: _titleController.text,
-  //       type: _typeController.text,
-  //       description: _descriptionController.text,
-  //       filename: '51.jpg',
-  //       height: 40,
-  //       width: 196,
-  //       price: double.parse(_priceController.text.extractNumbers()),
-  //       rating: _rating,
-  //     );
-
-  //     // homeController.editProduct(productModel, index);
-  //     Get.back();
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +102,7 @@ class _EditProductPageState extends State<EditProductPage> {
                 textInputAction: TextInputAction.next,
                 focusNode: _priceFocus,
                 onFieldSubmitted: (_) =>
-                    FocusScope.of(context).requestFocus(_ratingFocus),
+                    FocusScope.of(context).requestFocus(_descriptionFocus),
                 validator: (v) => MyPrice(v!).validator(),
                 inputFormatters: [CurrencyInputFormatter()],
               ),
@@ -134,8 +114,18 @@ class _EditProductPageState extends State<EditProductPage> {
                 textInputAction: TextInputAction.done,
                 focusNode: _descriptionFocus,
                 onFieldSubmitted: (_) {
-                  // updateProduct();
-                },
+                  final product = ProductModel(
+                    id: '',
+                    title: _titleController.text,
+                    type: _typeController.text,
+                    description: _descriptionController.text,
+                    price: double.tryParse(_priceController.text) ?? 0,
+                    rating: _rating,
+                  );
+                  homeController.updateProduct(product, index);
+                  Navigator.of(context).pop();
+                }
+,
                 validator: (v) => MyDescription(v!).validator(),
               ),
               const SizedBox(height: 12.0),
@@ -148,8 +138,18 @@ class _EditProductPageState extends State<EditProductPage> {
               const SizedBox(height: 14.0),
               TextButton(
                 onPressed: () {
-                  // Passar o update product;
-                },
+                  final product = ProductModel(
+                    id: '',
+                    title: _titleController.text,
+                    type: _typeController.text,
+                    description: _descriptionController.text,
+                    price: double.tryParse(_priceController.text) ?? 0,
+                    rating: _rating,
+                  );
+                  homeController.updateProduct(product, index);
+                  Navigator.of(context).pop();
+                }
+,
                 child: Text(
                   'Submit',
                   style: Theme.of(context).textTheme.bodyText2,

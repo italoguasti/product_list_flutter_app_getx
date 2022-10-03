@@ -26,7 +26,6 @@ class _CreateProductPageState extends State<CreateProductPage> {
 
   final _typeFocus = FocusNode();
   final _priceFocus = FocusNode();
-  final _ratingFocus = FocusNode();
   final _descriptionFocus = FocusNode();
 
   final _formKey = GlobalKey<FormState>();
@@ -90,7 +89,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                 textInputAction: TextInputAction.next,
                 focusNode: _priceFocus,
                 onFieldSubmitted: (_) =>
-                    FocusScope.of(context).requestFocus(_ratingFocus),
+                    FocusScope.of(context).requestFocus(_descriptionFocus),
                 validator: (v) => MyPrice(v!).validator(),
                 //O erro do preço está no inputFormatter
                 // inputFormatters: [CurrencyInputFormatter()],
