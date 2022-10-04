@@ -30,14 +30,12 @@ class _EditProductPageState extends State<EditProductPage> {
 
   late HomeController homeController;
   late ProductModel productModel;
-  late int index;
 
   @override
   void initState() {
     final map = Get.arguments as Map;
     homeController = map['controller'];
     productModel = map['productModel'];
-    index = map['index'];
 
     _titleController.text = productModel.title.toString();
     _typeController.text = productModel.type.toString();
@@ -122,10 +120,9 @@ class _EditProductPageState extends State<EditProductPage> {
                     price: double.tryParse(_priceController.text) ?? 0,
                     rating: _rating,
                   );
-                  homeController.updateProduct(product, index);
+                  homeController.updateProduct(product);
                   Navigator.of(context).pop();
-                }
-,
+                },
                 validator: (v) => MyDescription(v!).validator(),
               ),
               const SizedBox(height: 12.0),
@@ -138,18 +135,21 @@ class _EditProductPageState extends State<EditProductPage> {
               const SizedBox(height: 14.0),
               TextButton(
                 onPressed: () {
-                  final product = ProductModel(
-                    id: '',
-                    title: _titleController.text,
-                    type: _typeController.text,
-                    description: _descriptionController.text,
-                    price: double.tryParse(_priceController.text) ?? 0,
-                    rating: _rating,
-                  );
-                  homeController.updateProduct(product, index);
-                  Navigator.of(context).pop();
-                }
-,
+                  if (_formKey.currentState!.validate()) {
+                    final product = ProductModel(
+                      id: productModel.id,
+                      title: _titleController.text,
+                      type: _typeController.text,
+                      description: _descriptionController.text,
+                      price:
+                          double.parse(_priceController.text.extractNumbers()) /
+                              100,
+                      rating: _rating,
+                    );
+                    homeController.updateProduct(product);
+                    Navigator.of(context).pop();
+                  }
+                },
                 child: Text(
                   'Submit',
                   style: Theme.of(context).textTheme.bodyText2,

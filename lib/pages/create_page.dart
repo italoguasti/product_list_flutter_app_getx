@@ -36,9 +36,6 @@ class _CreateProductPageState extends State<CreateProductPage> {
     final map = Get.arguments as Map;
 
     homeController = map['controller'];
-
-    //Conferir com alguém se isso é necessário:
-    // _priceController.addListener(() {});
   }
 
   @override
@@ -92,7 +89,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                     FocusScope.of(context).requestFocus(_descriptionFocus),
                 validator: (v) => MyPrice(v!).validator(),
                 //O erro do preço está no inputFormatter
-                // inputFormatters: [CurrencyInputFormatter()],
+                inputFormatters: [CurrencyInputFormatter()],
               ),
               const SizedBox(height: 8.0),
               MyTextFormField(
@@ -113,16 +110,19 @@ class _CreateProductPageState extends State<CreateProductPage> {
               const SizedBox(height: 14.0),
               TextButton(
                 onPressed: () {
-                  final product = ProductModel(
-                    id: '',
-                    title: _titleController.text,
-                    type: _typeController.text,
-                    description: _descriptionController.text,
-                    price: double.tryParse(_priceController.text) ?? 0,
-                    rating: _rating,
-                  );
-                  homeController.addProduct(product);
-                  Navigator.of(context).pop();
+                  if (_formKey.currentState!.validate()) {
+
+                    final product = ProductModel(
+                      id: '',
+                      title: _titleController.text,
+                      type: _typeController.text,
+                      description: _descriptionController.text,
+                      rating: _rating,
+                      price: double.parse(_priceController.text.extractNumbers()) / 100,
+                    );
+                    homeController.addProduct(product);
+                    Navigator.of(context).pop();
+                  }
                 },
                 child: Text(
                   'Submit',

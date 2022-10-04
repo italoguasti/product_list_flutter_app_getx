@@ -121,7 +121,6 @@ class _HomePageState extends State<HomePage> {
                                                   'controller': homeController,
                                                   'productModel':
                                                       products[index],
-                                                  'index': index,
                                                 });
                                           },
                                           onPressedDelete: () {

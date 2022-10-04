@@ -18,18 +18,6 @@ class HomeController extends GetxController {
     _products.refresh();
   }
 
-  Future<void> saveProduct(ProductModel product) async {
-    final savedProduct = await repository.saveThisProduct(product);
-    final index = _products.value.indexWhere((e) => e.id == product.id);
-    final existElement = index != -1;
-    if (existElement) {
-      _products.value[index] = savedProduct;
-    } else {
-      _products.value.add(savedProduct);
-    }
-    _products.refresh();
-  }
-
   Future<void> removeProduct(ProductModel product) async {
     await repository.removeThisProduct(product);
     _products.value
@@ -43,9 +31,25 @@ class HomeController extends GetxController {
     _products.refresh();
   }
 
-  Future<void> updateProduct(ProductModel product, int index) async {
+  Future<void> updateProduct(ProductModel product) async {
+    int index = _products.value.indexWhere((p) => p.id == product.id);
+
     final updatedProduct = await repository.updateThisProduct(product);
     _products.value[index] = updatedProduct;
     _products.refresh();
+
   }
+
+  //Método save apenas para observação (não está sendo utilizado)
+  // Future<void> saveProduct(ProductModel product) async {
+  //   final savedProduct = await repository.saveThisProduct(product);
+  //   final index = _products.value.indexWhere((e) => e.id == product.id);
+  //   final existElement = index != -1;
+  //   if (existElement) {
+  //     _products.value[index] = savedProduct;
+  //   } else {
+  //     _products.value.add(savedProduct);
+  //   }
+  //   _products.refresh();
+  // }
 }

@@ -29,17 +29,6 @@ class ProductsRepository implements IProductsRepository {
   }
 
   @override
-  Future<ProductModel> saveThisProduct(ProductModel product) async {
-    if (product.id.isNotEmpty) {
-      //create functions
-      return updateThisProduct(product);
-    } else {
-      //create functions
-      return addThisProduct(product);
-    }
-  }
-
-  @override
   Future<ProductModel> addThisProduct(ProductModel product) async {
     final response = await _dio.post(
       'https://getx-lesson-one-default-rtdb.firebaseio.com/products.json',
@@ -59,8 +48,8 @@ class ProductsRepository implements IProductsRepository {
 
   @override
   Future<ProductModel> updateThisProduct(ProductModel product) async {
-    await _dio.patch(
-      'https://getx-lesson-one-default-rtdb.firebaseio.com/products.json',
+    await _dio.put(
+      'https://getx-lesson-one-default-rtdb.firebaseio.com/products/${product.id}.json',
       data: product.toMap(),
     );
     return product;
@@ -76,4 +65,16 @@ class ProductsRepository implements IProductsRepository {
       throw Exception('Failed to delet product: ${product.id}');
     }
   }
+
+  //Método save apenas para observação (não está sendo utilizado)
+  // @override
+  // Future<ProductModel> saveThisProduct(ProductModel product) async {
+  //   if (product.id.isNotEmpty) {
+  //     //create functions
+  //     return updateThisProduct(product);
+  //   } else {
+  //     //create functions
+  //     return addThisProduct(product);
+  //   }
+  // }
 }
