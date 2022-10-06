@@ -4,9 +4,10 @@ class ProductModel {
   final String title;
   final String type;
   final String description;
-
   final double price;
   final double rating;
+  final DateTime date;
+
   ProductModel({
     required this.id,
     required this.title,
@@ -14,6 +15,7 @@ class ProductModel {
     required this.description,
     required this.price,
     required this.rating,
+    required this.date,
   });
 
   //Envia
@@ -24,6 +26,7 @@ class ProductModel {
       'description': description,
       'price': price,
       'rating': rating,
+      'date': date.toString(),
     };
   }
 
@@ -36,6 +39,7 @@ class ProductModel {
       description: map['description'] as String,
       price: map['price'].toDouble() as double,
       rating: map['rating'].toDouble() as double,
+      date: DateTime.parse(map['date']),
     );
   }
 }

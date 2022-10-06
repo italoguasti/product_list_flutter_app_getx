@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:getx_lesson_one/controllers/home_controller.dart';
-import 'package:getx_lesson_one/widgets/my_dialog.dart';
+import 'package:getx_lesson_one/components/my_dialog.dart';
 
 import '../theme/app_gradient_color.dart';
 

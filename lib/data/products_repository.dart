@@ -43,6 +43,7 @@ class ProductsRepository implements IProductsRepository {
       description: product.description,
       price: product.price,
       rating: product.rating,
+      date: product.date,
     );
   }
 

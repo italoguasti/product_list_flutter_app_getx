@@ -6,8 +6,8 @@ import '../validation/validation.dart';
 
 import '../controllers/home_controller.dart';
 import '../theme/app_gradient_color.dart';
-import '../widgets/custom_rating.dart';
-import '../widgets/my_text_form_field.dart';
+import '../components/custom_rating.dart';
+import '../components/my_text_form_field.dart';
 
 class CreateProductPage extends StatefulWidget {
   const CreateProductPage({Key? key}) : super(key: key);
@@ -111,14 +111,16 @@ class _CreateProductPageState extends State<CreateProductPage> {
               TextButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-
                     final product = ProductModel(
                       id: '',
                       title: _titleController.text,
                       type: _typeController.text,
                       description: _descriptionController.text,
                       rating: _rating,
-                      price: double.parse(_priceController.text.extractNumbers()) / 100,
+                      price:
+                          double.parse(_priceController.text.extractNumbers()) /
+                              100,
+                      date: DateTime.now(),
                     );
                     homeController.addProduct(product);
                     Navigator.of(context).pop();

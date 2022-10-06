@@ -6,8 +6,8 @@ import '../validation/validation.dart';
 import '../controllers/home_controller.dart';
 import '../models/product_model.dart';
 import '../theme/app_gradient_color.dart';
-import '../widgets/custom_rating.dart';
-import '../widgets/my_text_form_field.dart';
+import '../components/custom_rating.dart';
+import '../components/my_text_form_field.dart';
 
 class EditProductPage extends StatefulWidget {
   const EditProductPage({Key? key}) : super(key: key);
@@ -51,6 +51,22 @@ class _EditProductPageState extends State<EditProductPage> {
     _typeFocus.dispose();
     _priceFocus.dispose();
     _descriptionFocus.dispose();
+  }
+
+  void updateProduct() {
+    if (_formKey.currentState!.validate()) {
+      final product = ProductModel(
+        id: productModel.id,
+        title: _titleController.text,
+        type: _typeController.text,
+        description: _descriptionController.text,
+        price: double.parse(_priceController.text.extractNumbers()) / 100,
+        rating: _rating,
+        date: DateTime.now(),
+      );
+      homeController.updateProduct(product);
+      Navigator.of(context).pop();
+    }
   }
 
   @override
@@ -112,16 +128,7 @@ class _EditProductPageState extends State<EditProductPage> {
                 textInputAction: TextInputAction.done,
                 focusNode: _descriptionFocus,
                 onFieldSubmitted: (_) {
-                  final product = ProductModel(
-                    id: '',
-                    title: _titleController.text,
-                    type: _typeController.text,
-                    description: _descriptionController.text,
-                    price: double.tryParse(_priceController.text) ?? 0,
-                    rating: _rating,
-                  );
-                  homeController.updateProduct(product);
-                  Navigator.of(context).pop();
+                  updateProduct();
                 },
                 validator: (v) => MyDescription(v!).validator(),
               ),
@@ -135,20 +142,7 @@ class _EditProductPageState extends State<EditProductPage> {
               const SizedBox(height: 14.0),
               TextButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    final product = ProductModel(
-                      id: productModel.id,
-                      title: _titleController.text,
-                      type: _typeController.text,
-                      description: _descriptionController.text,
-                      price:
-                          double.parse(_priceController.text.extractNumbers()) /
-                              100,
-                      rating: _rating,
-                    );
-                    homeController.updateProduct(product);
-                    Navigator.of(context).pop();
-                  }
+                  updateProduct();
                 },
                 child: Text(
                   'Submit',
