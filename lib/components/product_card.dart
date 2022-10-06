@@ -2,24 +2,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import '../validation/validation.dart';
 import 'package:intl/intl.dart';
+
+import 'package:getx_lesson_one/models/product_model.dart';
 
 import 'my_dialog.dart';
 
 class ProductCard extends StatelessWidget {
-  final String productTitle;
-  final String productType;
-  final double productRating;
-  final String productPrice;
+  final ProductModel product;
+
   final dynamic Function()? onPressedEdit;
   final dynamic Function()? onPressedDelete;
 
   const ProductCard({
     Key? key,
-    required this.productTitle,
-    required this.productType,
-    required this.productRating,
-    required this.productPrice,
+    required this.product,
     required this.onPressedEdit,
     required this.onPressedDelete,
   }) : super(key: key);
@@ -42,7 +40,7 @@ class ProductCard extends StatelessWidget {
             child: const Padding(
               padding: EdgeInsets.all(10.0),
               child: Image(
-                  fit: BoxFit.cover, image: AssetImage('assets/images/10.jpg')),
+                  fit: BoxFit.cover, image: AssetImage('assets/images/flutter-logo.png')),
             ),
           ),
           SizedBox(
@@ -58,7 +56,7 @@ class ProductCard extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.all(2.0),
                         child: Text(
-                          productTitle,
+                          product.title,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodyText1,
@@ -94,7 +92,7 @@ class ProductCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: 2.0, horizontal: 4.0),
                   child: Text(
-                    productType,
+                    product.title,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -103,7 +101,7 @@ class ProductCard extends StatelessWidget {
                   children: [
                     //Conferir esse RatingBarIndicator
                     RatingBarIndicator(
-                      rating: productRating,
+                      rating: product.rating,
                       itemBuilder: (context, index) => const Icon(
                         Icons.star,
                         color: Colors.amber,
@@ -114,7 +112,7 @@ class ProductCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      productPrice,
+                      product.price.toCurrency(),
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],

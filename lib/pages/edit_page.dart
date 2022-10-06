@@ -39,7 +39,7 @@ class _EditProductPageState extends State<EditProductPage> {
 
     _titleController.text = productModel.title.toString();
     _typeController.text = productModel.type.toString();
-    _priceController.text = productModel.price.toString();
+    _priceController.text = productModel.price.toCurrency();
     _rating = productModel.rating;
     _descriptionController.text = productModel.description;
     super.initState();

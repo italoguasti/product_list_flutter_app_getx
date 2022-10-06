@@ -54,12 +54,7 @@ class _HomePageState extends State<HomePage> {
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return ProductCard(
-                  
-                    productTitle: products[index].title.toString(),
-                    productType: products[index].type.toString(),
-                    productRating: products[index].rating, //todouble
-                    productPrice: 'R\$${products[index].price}',
-
+                    product: products[index],                
                     onPressedEdit:() {
                       Get.toNamed('/editProduct', arguments: {
                                 'controller': homeController,
@@ -67,7 +62,6 @@ class _HomePageState extends State<HomePage> {
                               });
                     },
                     onPressedDelete: () => homeController.removeProduct(products[index]),
-                    
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
