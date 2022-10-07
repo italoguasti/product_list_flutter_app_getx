@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import '../validation/validation.dart';
-import 'package:intl/intl.dart';
-
 import 'package:getx_lesson_one/models/product_model.dart';
 
 import 'my_dialog.dart';
@@ -40,7 +38,8 @@ class ProductCard extends StatelessWidget {
             child: const Padding(
               padding: EdgeInsets.all(10.0),
               child: Image(
-                  fit: BoxFit.cover, image: AssetImage('assets/images/flutter-logo.png')),
+                  fit: BoxFit.cover,
+                  image: AssetImage('assets/images/flutter-logo.png')),
             ),
           ),
           SizedBox(
@@ -69,7 +68,7 @@ class ProductCard extends StatelessWidget {
                         horizontal: 10.0,
                       ),
                       child: Text(
-                        DateFormat('dd-MM-yyyy').format(DateTime.now()),
+                        product.date.toDateFormat(),
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
