@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:getx_lesson_one/components/product_card.dart';
-import 'package:getx_lesson_one/models/product_model.dart';
+import '../components/components.dart';
+import '../models/product_model.dart';
 
-import 'package:getx_lesson_one/controllers/home_controller.dart';
+import '../controllers/home_controller.dart';
 
 import '../theme/app_gradient_color.dart';
 
