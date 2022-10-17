@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:getx_lesson_one/pages/create_page.dart';
-import 'package:getx_lesson_one/pages/edit_page.dart';
-import 'package:getx_lesson_one/pages/home_page.dart';
-import 'package:getx_lesson_one/pages/splash_page.dart';
+import 'package:getx_lesson_one/pages/login_page.dart';
+import 'package:getx_lesson_one/pages/pages.dart';
 import 'firebase_options.dart';
 import 'theme/app_theme.dart';
 
@@ -28,6 +26,9 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         getPages: [
           GetPage(name: '/', page: () => const SplashPage()),
+          GetPage(name: '/welcome', page: () => const WelcomePage()),
+          GetPage(name: '/login', page: () => const LoginPage()),
+          GetPage(name: '/signup', page: () => const SignupPage()),
           GetPage(name: '/home', page: () => const HomePage()),
           GetPage(name: '/editProduct', page: () => const EditProductPage()),
           GetPage(
