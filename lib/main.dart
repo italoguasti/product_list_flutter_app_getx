@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:getx_lesson_one/pages/login_page.dart';
 import 'package:getx_lesson_one/pages/pages.dart';
 import 'firebase_options.dart';
 import 'theme/app_theme.dart';

@@ -40,6 +40,7 @@ class LoginBody extends StatelessWidget {
           ),
           RoundedPasswordField(
             onChanged: (value) {},
+            hinText: 'Password',
           ),
           RoundedButton(
             text: 'LOGIN',

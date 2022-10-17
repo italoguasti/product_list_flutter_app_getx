@@ -37,6 +37,11 @@ class SignUpBody extends StatelessWidget {
           ),
           RoundedPasswordField(
             onChanged: (value) {},
+            hinText: 'Password',
+          ),
+          RoundedPasswordField(
+            onChanged: (value) {},
+            hinText: 'Confirm password',
           ),
           RoundedButton(
             text: 'SIGNUP',
