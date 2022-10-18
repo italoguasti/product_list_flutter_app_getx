@@ -20,7 +20,7 @@ class WelcomeBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'WELCOME TO APP TEST!',
+              'HEY, WELCOME!',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 14.0,
