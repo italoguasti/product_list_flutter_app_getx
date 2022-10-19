@@ -25,11 +25,6 @@ class _SignUpBodyState extends State<SignUpBody> {
 
   bool _isLoading = false;
 
-  final Map<String, String> _authData = {
-    'email': '',
-    'password': '',
-  };
-
   Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate() ?? false;
 
