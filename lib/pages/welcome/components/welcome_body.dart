@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../theme/theme.dart';
-import '../components.dart';
+import '../../../theme/theme.dart';
+import '../../../components/components.dart';
+import '../../pages.dart';
 
 class WelcomeBody extends StatelessWidget {
   const WelcomeBody({

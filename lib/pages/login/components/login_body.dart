@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../models/models.dart';
-import '../../theme/theme.dart';
-import '../../validation/validation.dart';
-import '../components.dart';
+import '../../../models/models.dart';
+import '../../../theme/theme.dart';
+import '../../../validation/validation.dart';
+import '../../../components/components.dart';
+import '../../pages.dart';
 
 class LoginBody extends StatefulWidget {
   const LoginBody({

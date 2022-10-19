@@ -3,9 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:getx_lesson_one/validation/validation.dart';
 
-import '../../models/models.dart';
-import '../../theme/theme.dart';
-import '../components.dart';
+import '../../../models/models.dart';
+import '../../../theme/theme.dart';
+import '../../../components/components.dart';
+import '../../pages.dart';
 
 class SignUpBody extends StatefulWidget {
   const SignUpBody({
