@@ -14,7 +14,9 @@ class HomeController extends GetxController {
   Future<void> findProducts() async {
     try {
       _products.value = await repository.findAllProducts();
-    } catch (e) {}
+    } catch (e) {
+      //Tratamento de erro
+    }
     _products.refresh();
   }
 

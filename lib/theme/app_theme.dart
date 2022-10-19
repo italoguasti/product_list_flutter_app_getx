@@ -12,17 +12,17 @@ ThemeData makeAppTheme() {
       fontFamily: 'Poppins',
       fontSize: 18.0,
       fontWeight: FontWeight.bold,
-      color: AppColors.primaryColor,
+      color: AppColors.primary,
     ),
   );
 
   return ThemeData(
     backgroundColor: Colors.white,
-    primaryColor: AppColors.primaryColor,
+    primaryColor: AppColors.primary,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          AppColors.primaryColor,
+          AppColors.primary,
         ),
       ),
     ),
