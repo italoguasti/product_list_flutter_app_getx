@@ -7,7 +7,7 @@ class MyPassword implements ValidateInput {
 
   @override
   String? validator() {
-    if (value.isEmpty || value.length < 5) {
+    if (value.isEmpty || value.length < 6) {
       return 'Please enter a valid password.';
     }
     return null;
