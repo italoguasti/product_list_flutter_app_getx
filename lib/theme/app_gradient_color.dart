@@ -8,8 +8,8 @@ gradientColorWidget() {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: <Color>[
-          AppColors.secondaryColor,
-          AppColors.primaryColor,
+          AppColors.secondary,
+          AppColors.primary,
           // Colors.black,
         ]),
   );

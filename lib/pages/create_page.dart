@@ -51,7 +51,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -67,7 +67,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                     FocusScope.of(context).requestFocus(_typeFocus),
                 validator: (v) => MyTitle(v!).validator(),
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 16.0),
               MyTextFormField(
                 labelText: 'Type',
                 controller: _typeController,
@@ -78,7 +78,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                     FocusScope.of(context).requestFocus(_priceFocus),
                 validator: (v) => MyType(v!).validator(),
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 16.0),
               MyTextFormField(
                 labelText: 'Price',
                 controller: _priceController,
@@ -91,7 +91,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                 //O erro do preço está no inputFormatter
                 inputFormatters: [CurrencyInputFormatter()],
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 16.0),
               MyTextFormField(
                 labelText: 'Description',
                 controller: _descriptionController,
@@ -100,7 +100,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                 focusNode: _descriptionFocus,
                 validator: (v) => MyDescription(v!).validator(),
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 16.0),
               CustomRating(
                 initialRating: _rating,
                 onRatingUpdate: (rating) {
