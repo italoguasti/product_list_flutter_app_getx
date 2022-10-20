@@ -21,21 +21,21 @@ class WelcomeBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'HEY, WELCOME!',
+              'WELCOME',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 14.0,
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: size.height * .05),
+            SizedBox(height: size.height * .04),
             Center(
               child: SvgPicture.asset(
-                'assets/images/use-logo.svg',
-                width: size.width * .5,
+                'assets/icons/welcome.svg',
+                width: size.width * .7,
               ),
             ),
-            SizedBox(height: size.height * .2),
+            SizedBox(height: size.height * .04),
             RoundedButton(
               text: 'LOGIN',
               press: () => Get.offAllNamed('/login'),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_lesson_one/theme/app_colors.dart';
 import '../components/components.dart';
 import '../models/product_model.dart';
 
@@ -54,14 +55,15 @@ class _HomePageState extends State<HomePage> {
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return ProductCard(
-                    product: products[index],                
-                    onPressedEdit:() {
+                    product: products[index],
+                    onPressedEdit: () {
                       Get.toNamed('/editProduct', arguments: {
-                                'controller': homeController,
-                                'productModel': products[index],
-                              });
+                        'controller': homeController,
+                        'productModel': products[index],
+                      });
                     },
-                    onPressedDelete: () => homeController.removeProduct(products[index]),
+                    onPressedDelete: () =>
+                        homeController.removeProduct(products[index]),
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
@@ -79,7 +81,7 @@ class _HomePageState extends State<HomePage> {
           Get.toNamed('/createProduct',
               arguments: {'controller': homeController});
         }),
-        backgroundColor: const Color(0xFF4a00e0),
+        backgroundColor: AppColors.primary,
         child: const Icon(Icons.add),
       ),
     );
