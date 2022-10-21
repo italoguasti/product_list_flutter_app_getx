@@ -60,15 +60,16 @@ class _LoginBodyState extends State<LoginBody> {
         _emailController.text,
         _passwordController.text,
       );
+
+      Get.offAllNamed('/home');
+
     } on AuthException catch (e) {
       _showErrorDialog(e.toString());
     } catch (e) {
       _showErrorDialog('An unexpected error occurred');
     }
-
+    
     setState(() => _isLoading = false);
-
-    // Get.offAllNamed('/home');
   }
 
   @override

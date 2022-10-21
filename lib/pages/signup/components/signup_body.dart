@@ -25,7 +25,7 @@ class _SignUpBodyState extends State<SignUpBody> {
   final _formKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
-  bool _obscureText = false;
+  bool _obscureText = true;
 
   void _showErrorDialog(String msg) {
     showDialog(
