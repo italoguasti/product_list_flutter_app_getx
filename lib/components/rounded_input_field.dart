@@ -12,7 +12,7 @@ class RoundedInputField extends StatelessWidget {
 
   const RoundedInputField({
     Key? key,
-    this.controller,
+    required this.controller,
     required this.hintText,
     required this.validator,
     required this.textInputAction,
@@ -26,6 +26,7 @@ class RoundedInputField extends StatelessWidget {
         textInputAction: textInputAction,
         controller: controller,
         cursorColor: Colors.white,
+        
         decoration: InputDecoration(
           errorStyle: const TextStyle(color: Colors.white),
           icon: Icon(
@@ -34,6 +35,7 @@ class RoundedInputField extends StatelessWidget {
           ),
           hintText: hintText,
           border: InputBorder.none,
+
         ),
       ),
     );

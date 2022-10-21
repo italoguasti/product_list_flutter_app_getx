@@ -20,12 +20,31 @@ class LoginBody extends StatefulWidget {
 
 class _LoginBodyState extends State<LoginBody> {
   final _emailController = TextEditingController();
-
   final _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
+  bool _obscureText = true;
+
+  void _showErrorDialog(String msg) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('An error has occurred'),
+        content: Text(msg),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text(
+              'Close',
+              style: TextStyle(color: AppColors.primary),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
   Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate() ?? false;
@@ -36,14 +55,20 @@ class _LoginBodyState extends State<LoginBody> {
 
     setState(() => _isLoading = true);
 
-    await Auth.login(
-      _emailController.text,
-      _passwordController.text,
-    );
+    try {
+      await Auth.login(
+        _emailController.text,
+        _passwordController.text,
+      );
+    } on AuthException catch (e) {
+      _showErrorDialog(e.toString());
+    } catch (e) {
+      _showErrorDialog('An unexpected error occurred');
+    }
 
     setState(() => _isLoading = false);
 
-    Get.offAllNamed('/home');
+    // Get.offAllNamed('/home');
   }
 
   @override
@@ -87,6 +112,16 @@ class _LoginBodyState extends State<LoginBody> {
                     controller: _passwordController,
                     textInputAction: TextInputAction.done,
                     validator: (v) => MyPassword(v!).validator(),
+                    obscureText: _obscureText,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() => _obscureText = !_obscureText);
+                      },
+                      child: Icon(
+                        _obscureText ? Icons.visibility : Icons.visibility_off,
+                        color: AppColors.mediumPurple,
+                      ),
+                    ),
                   ),
                   RoundedButton(
                     text: 'LOGIN',

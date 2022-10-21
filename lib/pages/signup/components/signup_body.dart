@@ -25,6 +25,26 @@ class _SignUpBodyState extends State<SignUpBody> {
   final _formKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
+  bool _obscureText = false;
+
+  void _showErrorDialog(String msg) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('An error has occurred'),
+        content: Text(msg),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text(
+              'Close',
+              style: TextStyle(color: AppColors.primary),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
   Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate() ?? false;
@@ -37,14 +57,19 @@ class _SignUpBodyState extends State<SignUpBody> {
 
     setState(() => _isLoading = true);
 
-    await Auth.signup(
-      _emailController.text,
-      _passwordController.text,
-    );
+    try {
+      await Auth.signup(
+        _emailController.text,
+        _passwordController.text,
+      );
+      Get.offAllNamed('/login');
+    } on AuthException catch (e) {
+      _showErrorDialog(e.toString());
+    } catch (e) {
+      _showErrorDialog('An unexpected error occurred');
+    }
 
     setState(() => _isLoading = false);
-
-    Get.offAllNamed('/login');
   }
 
   @override
@@ -86,6 +111,17 @@ class _SignUpBodyState extends State<SignUpBody> {
                     controller: _passwordController,
                     textInputAction: TextInputAction.next,
                     validator: (v) => MyPassword(v!).validator(),
+                    obscureText: _obscureText,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() => _obscureText = !_obscureText);
+                      },
+                      child: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: AppColors.mediumPurple),
+                    ),
                   ),
                   RoundedPasswordField(
                     hinText: 'Confirm password',
@@ -94,6 +130,17 @@ class _SignUpBodyState extends State<SignUpBody> {
                     validator: (v) =>
                         MyConfirmPassword(v!, _passwordController.text)
                             .validator(),
+                    obscureText: _obscureText,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() => _obscureText = !_obscureText);
+                      },
+                      child: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: AppColors.mediumPurple),
+                    ),
                   ),
                   RoundedButton(
                     text: 'SIGNUP',

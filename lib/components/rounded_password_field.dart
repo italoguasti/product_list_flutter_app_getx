@@ -9,6 +9,8 @@ class RoundedPasswordField extends StatelessWidget {
   final String? hinText;
   final String? Function(String?)? validator;
   final TextInputAction? textInputAction;
+  final bool obscureText;
+  final Widget? suffixIcon;
 
   const RoundedPasswordField({
     Key? key,
@@ -16,6 +18,8 @@ class RoundedPasswordField extends StatelessWidget {
     required this.hinText,
     required this.validator,
     required this.textInputAction,
+    required this.obscureText,
+    required this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -26,7 +30,7 @@ class RoundedPasswordField extends StatelessWidget {
         validator: validator,
         textInputAction: textInputAction,
         controller: controller,
-        obscureText: true,
+        obscureText: obscureText,
         decoration: InputDecoration(
           errorStyle: const TextStyle(color: Colors.white),
           hintText: hinText,
@@ -34,10 +38,7 @@ class RoundedPasswordField extends StatelessWidget {
             Icons.lock,
             color: AppColors.mediumPurple,
           ),
-          suffixIcon: Icon(
-            Icons.visibility,
-            color: AppColors.mediumPurple,
-          ),
+          suffixIcon: suffixIcon,
           border: InputBorder.none,
         ),
       ),
