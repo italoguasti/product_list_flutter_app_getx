@@ -27,6 +27,8 @@ class _SignUpBodyState extends State<SignUpBody> {
   bool _isLoading = false;
   bool _obscureText = true;
 
+    Auth auth = Auth();
+
   void _showErrorDialog(String msg) {
     showDialog(
       context: context,
@@ -58,7 +60,7 @@ class _SignUpBodyState extends State<SignUpBody> {
     setState(() => _isLoading = true);
 
     try {
-      await Auth.signup(
+      await auth.signup(
         _emailController.text,
         _passwordController.text,
       );

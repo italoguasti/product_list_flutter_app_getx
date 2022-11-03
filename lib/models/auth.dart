@@ -1,44 +1,49 @@
 import 'dart:async';
-import 'dart:convert';
 
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:getx_lesson_one/models/models.dart';
-import 'package:http/http.dart' as http;
 
 class Auth extends GetxController {
+  Dio dio = Dio();
+  FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
+
   static const webApiKey = 'AIzaSyAjKfSSl7th8cegZf7G-9LTGmhIIWKL1Ak';
 
-  static Future<void> _authenticate(
+  Future<void> _authenticate(
       String email, String password, String urlFragment) async {
     final url =
         'https://identitytoolkit.googleapis.com/v1/accounts:$urlFragment?key=$webApiKey';
-    final response = await http.post(
-      Uri.parse(url),
+
+    final data = {
+      'email': email,
+      'password': password,
+      'returnSecureToken': true,
+    };
+
+    final response = await dio.post(
+      url,
       // headers: {'authorization': zxpoaxjaopisjd,},
-      body: jsonEncode(
-        {
-          'email': email,
-          'password': password,
-          'returnSecureToken': true,
-        },
-      ),
+      data: data,
     );
 
-    final body = jsonDecode(response.body);
+    final body = response.data;
 
     if (body['error'] != null) {
       throw AuthException(key: body['error']['message']);
     } else {
-      //_token = body['idToken'];
+      final token = body['idToken'];
+      await flutterSecureStorage.write(key: 'token', value: token);
+      
     }
-    print(body);
   }
 
-  static Future<void> signup(String email, String password) async {
+  Future<void> signup(String email, String password) async {
     return _authenticate(email, password, 'signUp');
   }
 
-  static Future<void> login(String email, String password) async {
+  Future<void> login(String email, String password) async {
     return _authenticate(email, password, 'signInWithPassword');
   }
 }

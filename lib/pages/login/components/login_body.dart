@@ -24,6 +24,8 @@ class _LoginBodyState extends State<LoginBody> {
 
   final _formKey = GlobalKey<FormState>();
 
+  Auth auth = Auth();
+
   bool _isLoading = false;
   bool _obscureText = true;
 
@@ -56,7 +58,7 @@ class _LoginBodyState extends State<LoginBody> {
     setState(() => _isLoading = true);
 
     try {
-      await Auth.login(
+      await auth.login(
         _emailController.text,
         _passwordController.text,
       );

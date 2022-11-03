@@ -1,15 +1,27 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:getx_lesson_one/data/i_products_repository.dart';
 import 'package:getx_lesson_one/models/product_model.dart';
 
 class ProductsRepository implements IProductsRepository {
   Dio dio = Dio();
+  FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
+
+  String? _token;
+
+  Future<String> get token async {
+    if (_token == null) {
+      final savedToken = await flutterSecureStorage.read(key: 'token');
+      _token = savedToken;
+    }
+    return _token!;
+  }
 
   @override
   Future<List<ProductModel>> findAllProducts() async {
     try {
       final response = await dio.get(
-          'https://getx-lesson-one-default-rtdb.firebaseio.com/products.json');
+          'https://getx-lesson-one-default-rtdb.firebaseio.com/products.json?auth=${await token}');
       if (response.data == 'null') {
         return [];
       }
