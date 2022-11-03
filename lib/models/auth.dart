@@ -6,29 +6,6 @@ import 'package:getx_lesson_one/models/models.dart';
 import 'package:http/http.dart' as http;
 
 class Auth extends GetxController {
-  String? _token;
-  String? _email;
-  String? userId;
-  DateTime? _expiryDate;
-  Timer? _logouTimer;
-
-  bool get isAuth {
-    final isValid = _expiryDate?.isAfter(DateTime.now()) ?? false;
-    return _token != null && isValid;
-  }
-
-  String? get token {
-    return isAuth ? _token : null;
-  }
-
-  String? get email {
-    return isAuth ? _email : null;
-  }
-
-  String? get uid {
-    return isAuth ? userId : null;
-  }
-
   static const webApiKey = 'AIzaSyAjKfSSl7th8cegZf7G-9LTGmhIIWKL1Ak';
 
   static Future<void> _authenticate(
@@ -51,6 +28,8 @@ class Auth extends GetxController {
 
     if (body['error'] != null) {
       throw AuthException(key: body['error']['message']);
+    } else {
+      //_token = body['idToken'];
     }
     print(body);
   }

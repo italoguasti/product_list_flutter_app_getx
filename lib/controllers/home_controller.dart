@@ -1,11 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:getx_lesson_one/models/product_model.dart';
 
 import '../data/products_repository.dart';
 
 class HomeController extends GetxController {
-  final repository = ProductsRepository(Dio());
+  final repository = ProductsRepository();
   //Gerenciar
   final Rx<List<ProductModel>> _products = Rx([]);
   //Acessar lista

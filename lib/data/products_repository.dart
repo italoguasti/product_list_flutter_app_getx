@@ -3,14 +3,12 @@ import 'package:getx_lesson_one/data/i_products_repository.dart';
 import 'package:getx_lesson_one/models/product_model.dart';
 
 class ProductsRepository implements IProductsRepository {
-  final Dio _dio;
-
-  ProductsRepository(this._dio);
+  Dio dio = Dio();
 
   @override
   Future<List<ProductModel>> findAllProducts() async {
     try {
-      final response = await _dio.get(
+      final response = await dio.get(
           'https://getx-lesson-one-default-rtdb.firebaseio.com/products.json');
       if (response.data == 'null') {
         return [];
@@ -30,7 +28,7 @@ class ProductsRepository implements IProductsRepository {
 
   @override
   Future<ProductModel> addThisProduct(ProductModel product) async {
-    final response = await _dio.post(
+    final response = await dio.post(
       'https://getx-lesson-one-default-rtdb.firebaseio.com/products.json',
       data: product.toMap(),
     );
@@ -49,7 +47,7 @@ class ProductsRepository implements IProductsRepository {
 
   @override
   Future<ProductModel> updateThisProduct(ProductModel product) async {
-    await _dio.put(
+    await dio.put(
       'https://getx-lesson-one-default-rtdb.firebaseio.com/products/${product.id}.json',
       data: product.toMap(),
     );
@@ -59,7 +57,7 @@ class ProductsRepository implements IProductsRepository {
   @override
   Future<ProductModel> removeThisProduct(ProductModel product) async {
     try {
-      await _dio.delete(
+      await dio.delete(
           'https://getx-lesson-one-default-rtdb.firebaseio.com/products/${product.id}.json');
       return product;
     } catch (e) {
