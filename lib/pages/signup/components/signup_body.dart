@@ -27,7 +27,7 @@ class _SignUpBodyState extends State<SignUpBody> {
   bool _isLoading = false;
   bool _obscureText = true;
 
-    Auth auth = Auth();
+  Auth auth = Auth();
 
   void _showErrorDialog(String msg) {
     showDialog(
@@ -120,8 +120,8 @@ class _SignUpBodyState extends State<SignUpBody> {
                       },
                       child: Icon(
                           _obscureText
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+                              ? Icons.visibility_off
+                              : Icons.visibility,
                           color: AppColors.mediumPurple),
                     ),
                   ),
@@ -139,8 +139,8 @@ class _SignUpBodyState extends State<SignUpBody> {
                       },
                       child: Icon(
                           _obscureText
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+                              ? Icons.visibility_off
+                              : Icons.visibility,
                           color: AppColors.mediumPurple),
                     ),
                   ),

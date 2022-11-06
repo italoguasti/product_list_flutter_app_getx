@@ -23,8 +23,8 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: Center(
         child: SvgPicture.asset(
-          'assets/images/use-logo.svg',
-          width: 120.0,
+          'assets/images/splash-logo.svg',
+          width: 80.0,
         ),
       ),
     );

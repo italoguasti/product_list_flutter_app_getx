@@ -64,13 +64,12 @@ class _LoginBodyState extends State<LoginBody> {
       );
 
       Get.offAllNamed('/home');
-
     } on AuthException catch (e) {
       _showErrorDialog(e.toString());
     } catch (e) {
       _showErrorDialog('An unexpected error occurred');
     }
-    
+
     setState(() => _isLoading = false);
   }
 
@@ -121,7 +120,7 @@ class _LoginBodyState extends State<LoginBody> {
                         setState(() => _obscureText = !_obscureText);
                       },
                       child: Icon(
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
+                        _obscureText ? Icons.visibility_off : Icons.visibility,
                         color: AppColors.mediumPurple,
                       ),
                     ),
