@@ -91,7 +91,7 @@ class ProductCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: 2.0, horizontal: 4.0),
                   child: Text(
-                    product.title,
+                    product.type,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),

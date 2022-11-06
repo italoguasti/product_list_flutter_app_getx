@@ -41,7 +41,7 @@ class ProductsRepository implements IProductsRepository {
   @override
   Future<ProductModel> addThisProduct(ProductModel product) async {
     final response = await dio.post(
-      'https://getx-lesson-one-default-rtdb.firebaseio.com/products.json',
+      'https://getx-lesson-one-default-rtdb.firebaseio.com/products.json?auth=${await token}',
       data: product.toMap(),
     );
 
@@ -60,7 +60,7 @@ class ProductsRepository implements IProductsRepository {
   @override
   Future<ProductModel> updateThisProduct(ProductModel product) async {
     await dio.put(
-      'https://getx-lesson-one-default-rtdb.firebaseio.com/products/${product.id}.json',
+      'https://getx-lesson-one-default-rtdb.firebaseio.com/products/${product.id}.json?auth=${await token}',
       data: product.toMap(),
     );
     return product;
@@ -70,7 +70,7 @@ class ProductsRepository implements IProductsRepository {
   Future<ProductModel> removeThisProduct(ProductModel product) async {
     try {
       await dio.delete(
-          'https://getx-lesson-one-default-rtdb.firebaseio.com/products/${product.id}.json');
+          'https://getx-lesson-one-default-rtdb.firebaseio.com/products/${product.id}.json?auth=${await token}');
       return product;
     } catch (e) {
       throw Exception('Failed to delet product: ${product.id}');
