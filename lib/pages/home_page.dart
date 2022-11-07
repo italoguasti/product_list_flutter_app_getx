@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:getx_lesson_one/models/auth.dart';
 import 'package:getx_lesson_one/theme/app_colors.dart';
 import '../components/components.dart';
 import '../models/product_model.dart';
@@ -36,6 +37,15 @@ class _HomePageState extends State<HomePage> {
         flexibleSpace: Container(
           decoration: gradientColorWidget(),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            onPressed: () {
+              //logout
+              Auth().logout();
+            },
+          ),
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () => homeController.findProducts(),
