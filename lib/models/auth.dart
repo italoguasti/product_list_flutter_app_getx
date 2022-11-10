@@ -9,9 +9,6 @@ class Auth extends GetxController {
   Dio dio = Dio();
   FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
 
-  String? logoutEmail;
-  String? logoutToken;
-
   static const webApiKey = 'AIzaSyAjKfSSl7th8cegZf7G-9LTGmhIIWKL1Ak';
 
   Future<void> _authenticate(
@@ -35,8 +32,6 @@ class Auth extends GetxController {
     if (body['error'] != null) {
       throw AuthException(key: body['error']['message']);
     } else {
-      logoutEmail = body['email'];
-      logoutToken = body['idToken'];
       final token = body['idToken'];
       await flutterSecureStorage.write(key: 'token', value: token);
     }
@@ -51,11 +46,9 @@ class Auth extends GetxController {
   }
 
   //Logout
-  void logout() {
-    // logoutEmail = null;
-    // logoutToken = null;
-    // refresh();
+  Future<void> logout() async {
+    await flutterSecureStorage.delete(key: 'token');
 
-    // Get.offAllNamed('/login');
+    Get.offAllNamed('/welcome');
   }
 }

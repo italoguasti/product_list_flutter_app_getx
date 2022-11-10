@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var homeController = HomeController();
+  final _auth = Auth();
 
   @override
   void initState() {
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.exit_to_app),
             onPressed: () {
               //logout
-              Auth().logout();
+              _auth.logout();
             },
           ),
         ],
