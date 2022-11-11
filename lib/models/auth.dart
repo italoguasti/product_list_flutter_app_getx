@@ -7,9 +7,18 @@ import 'package:getx_lesson_one/models/models.dart';
 
 class Auth extends GetxController {
   Dio dio = Dio();
+  // final token = SavedToken().token;
   FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
 
   static const webApiKey = 'AIzaSyAjKfSSl7th8cegZf7G-9LTGmhIIWKL1Ak';
+
+  DateTime? _expiryDate;
+  Timer? _logoutTimer;
+
+  // bool get isAuth {
+  //   final isValid = _expiryDate?.isAfter(DateTime.now()) ?? false;
+  //   return token != null && isValid;
+  // }
 
   Future<void> _authenticate(
       String email, String password, String urlFragment) async {
@@ -33,7 +42,15 @@ class Auth extends GetxController {
       throw AuthException(key: body['error']['message']);
     } else {
       final token = body['idToken'];
+
+      _expiryDate = DateTime.now().add(
+        Duration(
+          seconds: int.parse(body['expiresIn']),
+        ),
+      );
+
       await flutterSecureStorage.write(key: 'token', value: token);
+      _autoLogout();
     }
   }
 
@@ -45,10 +62,23 @@ class Auth extends GetxController {
     return _authenticate(email, password, 'signInWithPassword');
   }
 
-  //Logout
   Future<void> logout() async {
     await flutterSecureStorage.delete(key: 'token');
-
+    _clearLogoutTimer();
     Get.offAllNamed('/welcome');
+  }
+
+  void _clearLogoutTimer() {
+    _logoutTimer?.cancel();
+    _logoutTimer = null;
+  }
+
+  void _autoLogout() {
+    _clearLogoutTimer();
+    final timeToLogout = _expiryDate?.difference(DateTime.now()).inSeconds;
+    _logoutTimer = Timer(
+      Duration(seconds: timeToLogout ?? 0),
+      logout,
+    );
   }
 }
