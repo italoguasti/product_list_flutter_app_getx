@@ -1,24 +1,17 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:getx_lesson_one/data/data.dart';
 import 'package:getx_lesson_one/models/models.dart';
 
 class Auth extends GetxController {
   Dio dio = Dio();
-  // final token = SavedToken().token;
-  FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
 
   static const webApiKey = 'AIzaSyAjKfSSl7th8cegZf7G-9LTGmhIIWKL1Ak';
 
   DateTime? _expiryDate;
   Timer? _logoutTimer;
-
-  // bool get isAuth {
-  //   final isValid = _expiryDate?.isAfter(DateTime.now()) ?? false;
-  //   return token != null && isValid;
-  // }
 
   Future<void> _authenticate(
       String email, String password, String urlFragment) async {
@@ -48,8 +41,7 @@ class Auth extends GetxController {
           seconds: int.parse(body['expiresIn']),
         ),
       );
-
-      await flutterSecureStorage.write(key: 'token', value: token);
+      SecureStorage.writeToken('token', token);
       _autoLogout();
     }
   }
@@ -63,7 +55,8 @@ class Auth extends GetxController {
   }
 
   Future<void> logout() async {
-    await flutterSecureStorage.delete(key: 'token');
+    SecureStorage.deleteToken('token');
+
     _clearLogoutTimer();
     Get.offAllNamed('/welcome');
   }

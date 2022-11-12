@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:getx_lesson_one/data/i_products_repository.dart';
 import 'package:getx_lesson_one/models/product_model.dart';
-import 'package:getx_lesson_one/models/saved_token.dart';
+import 'package:getx_lesson_one/data/secure_storage.dart';
 
 class ProductsRepository implements IProductsRepository {
   Dio dio = Dio();
-  final token = SavedToken().token;
+  final token = SecureStorage.readToken();
 
   @override
   Future<List<ProductModel>> findAllProducts() async {
