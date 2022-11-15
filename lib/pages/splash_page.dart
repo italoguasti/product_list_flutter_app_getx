@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:getx_lesson_one/controllers/controllers.dart';
 import 'package:getx_lesson_one/theme/app_colors.dart';
+
+import '../models/models.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -11,11 +13,12 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  Auth auth = Auth();
+  SplashController splashController = SplashController();
+
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 4), () {
-      Get.offAllNamed('/welcome');
-    });
+    splashController.tryAutoLogin();
     super.initState();
   }
 

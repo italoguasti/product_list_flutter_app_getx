@@ -7,11 +7,10 @@ import 'package:getx_lesson_one/models/models.dart';
 
 class Auth extends GetxController {
   Dio dio = Dio();
+  DateTime? expiryDate;
+  Timer? _logoutTimer;
 
   static const webApiKey = 'AIzaSyAjKfSSl7th8cegZf7G-9LTGmhIIWKL1Ak';
-
-  DateTime? _expiryDate;
-  Timer? _logoutTimer;
 
   Future<void> _authenticate(
       String email, String password, String urlFragment) async {
@@ -36,14 +35,20 @@ class Auth extends GetxController {
     } else {
       final token = body['idToken'];
 
-      _expiryDate = DateTime.now().add(
+      expiryDate = DateTime.now().add(
         Duration(
           seconds: int.parse(body['expiresIn']),
         ),
       );
+
       SecureStorage.writeToken('token', token);
+
       _autoLogout();
     }
+  }
+
+  tryAutoLogin() {
+    
   }
 
   Future<void> signup(String email, String password) async {
@@ -68,7 +73,7 @@ class Auth extends GetxController {
 
   void _autoLogout() {
     _clearLogoutTimer();
-    final timeToLogout = _expiryDate?.difference(DateTime.now()).inSeconds;
+    final timeToLogout = expiryDate?.difference(DateTime.now()).inSeconds;
     _logoutTimer = Timer(
       Duration(seconds: timeToLogout ?? 0),
       logout,
