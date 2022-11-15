@@ -47,10 +47,6 @@ class Auth extends GetxController {
     }
   }
 
-  tryAutoLogin() {
-    
-  }
-
   Future<void> signup(String email, String password) async {
     return _authenticate(email, password, 'signUp');
   }

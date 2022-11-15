@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
+import 'package:getx_lesson_one/models/auth.dart';
 
 import '../data/data.dart';
 
 class SplashController extends GetxController {
-  final token = SecureStorage.readToken();
+  Future<void> tryAutoLogin() async {
+    final token = await SecureStorage.readToken();
+    final expiryDate = Auth().expiryDate;
 
-  // Está funcionando o login automático, porém preciso alterar a verificação != null, pois está dando errado e mesmo não autenticado o usuário vai para a tela /home.
-  void tryAutoLogin() {
     if (token != null) {
       Future.delayed(const Duration(seconds: 4), () {
         Get.offAllNamed('/home');
@@ -14,5 +15,7 @@ class SplashController extends GetxController {
     } else {
       Get.offAllNamed('/welcome');
     }
+    print(token);
+    print(expiryDate);
   }
 }
