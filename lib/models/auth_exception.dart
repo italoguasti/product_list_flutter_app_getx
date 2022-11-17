@@ -20,3 +20,12 @@ class AuthException implements Exception {
     return errors[key] ?? 'An error occurred in the authentication process.';
   }
 }
+
+/* 
+Get.snackbar(
+        'Erro ${e.statusCode}',
+        e.message,
+        backgroundColor: Colors.red.withOpacity(0.8),
+      );
+      
+      */
