@@ -26,11 +26,15 @@ class ProductsRepository implements IProductsRepository {
       return list;
     } on DioError catch (e) {
       switch (e.response?.statusCode) {
+        case 401:
+          throw UnauthorizedException(
+              errorMessage: e.response?.data['error'] ?? 'Fail to add product');
         case 404:
           throw NotFoundException(
               errorMessage:
                   e.response?.data['error'] ?? 'Not Found product list');
         default:
+          print(e);
           rethrow;
       }
     }
@@ -61,7 +65,7 @@ class ProductsRepository implements IProductsRepository {
           throw UnauthorizedException(
               errorMessage: e.response?.data['error'] ?? 'Fail to add product');
         default:
-          rethrow;
+          throw 'an erro as ocurred';
       }
     }
   }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../exceptions/exceptions.dart';
 import '../../../models/models.dart';
 import '../../../theme/theme.dart';
 import '../../../validation/validation.dart';
@@ -48,11 +47,12 @@ class _LoginBodyState extends State<LoginBody> {
       );
 
       Get.offAllNamed('/home');
-    } on DioError {
-      // // Altereiaqui
-      // final errorMessage = _dioExceptions.fromDioError(e);
-      // print('Error message: $errorMessage');
-      // print(e);
+    } on DioError catch (e) {
+      Get.snackbar(
+        'Error',
+        e.error.toString(),
+        backgroundColor: AppColors.lightPurple.withOpacity(0.5),
+      );
     }
 
     setState(() => _isLoading = false);

@@ -21,6 +21,12 @@ class HomeController extends GetxController {
         e.errorMessage,
         backgroundColor: AppColors.lightPurple.withOpacity(0.5),
       );
+    } on UnauthorizedException catch (e) {
+      Get.snackbar(
+        'Error',
+        e.errorMessage,
+        backgroundColor: AppColors.lightPurple.withOpacity(0.5),
+      );
     }
     _products.refresh();
   }
@@ -44,6 +50,12 @@ class HomeController extends GetxController {
     try {
       final addProduct = await repository.addThisProduct(product);
       _products.value.add(addProduct);
+    } on NotFoundException catch (e) {
+      Get.snackbar(
+        'Error',
+        e.errorMessage,
+        backgroundColor: AppColors.lightPurple.withOpacity(0.5),
+      );
     } on UnauthorizedException catch (e) {
       Get.snackbar(
         'Error',
