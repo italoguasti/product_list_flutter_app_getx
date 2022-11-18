@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:getx_lesson_one/data/data.dart';
-import 'package:getx_lesson_one/models/models.dart';
 
 class Auth extends GetxController {
   Dio dio = Dio();
@@ -31,7 +30,8 @@ class Auth extends GetxController {
     final body = response.data;
 
     if (body['error'] != null) {
-      throw AuthException(key: body['error']['message']);
+      // Altereiaqui
+      // throw DioExceptions;
     } else {
       final token = body['idToken'];
 

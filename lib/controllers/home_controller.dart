@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:getx_lesson_one/exceptions/exceptions.dart';
 import 'package:getx_lesson_one/models/product_model.dart';
+import 'package:getx_lesson_one/theme/app_colors.dart';
 
 import '../data/products_repository.dart';
 
@@ -13,32 +15,59 @@ class HomeController extends GetxController {
   Future<void> findProducts() async {
     try {
       _products.value = await repository.findAllProducts();
-    } catch (e) {
-      //Tratamento de erro
+    } on NotFoundException catch (e) {
+      Get.snackbar(
+        'Error',
+        e.errorMessage,
+        backgroundColor: AppColors.lightPurple.withOpacity(0.5),
+      );
     }
     _products.refresh();
   }
 
   Future<void> removeProduct(ProductModel product) async {
-    await repository.removeThisProduct(product);
-    _products.value
-        .removeWhere((currentProduct) => currentProduct.id == product.id);
+    try {
+      await repository.removeThisProduct(product);
+      _products.value
+          .removeWhere((currentProduct) => currentProduct.id == product.id);
+    } on UnauthorizedException catch (e) {
+      Get.snackbar(
+        'Error',
+        e.errorMessage,
+        backgroundColor: AppColors.lightPurple.withOpacity(0.5),
+      );
+    }
     _products.refresh();
   }
 
   Future<void> addProduct(ProductModel product) async {
-    final addProduct = await repository.addThisProduct(product);
-    _products.value.add(addProduct);
+    try {
+      final addProduct = await repository.addThisProduct(product);
+      _products.value.add(addProduct);
+    } on UnauthorizedException catch (e) {
+      Get.snackbar(
+        'Error',
+        e.errorMessage,
+        backgroundColor: AppColors.lightPurple.withOpacity(0.5),
+      );
+    }
     _products.refresh();
   }
 
   Future<void> updateProduct(ProductModel product) async {
-    int index = _products.value.indexWhere((p) => p.id == product.id);
+    try {
+      int index = _products.value.indexWhere((p) => p.id == product.id);
 
-    final updatedProduct = await repository.updateThisProduct(product);
-    _products.value[index] = updatedProduct;
+      final updatedProduct = await repository.updateThisProduct(product);
+      _products.value[index] = updatedProduct;
+    } on UnauthorizedException catch (e) {
+      Get.snackbar(
+        'Error',
+        e.errorMessage,
+        backgroundColor: AppColors.lightPurple.withOpacity(0.5),
+      );
+    }
     _products.refresh();
-
   }
 
   //Método save apenas para observação (não está sendo utilizado)

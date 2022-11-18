@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../../exceptions/exceptions.dart';
 import '../../../models/models.dart';
 import '../../../theme/theme.dart';
 import '../../../validation/validation.dart';
@@ -24,29 +26,11 @@ class _LoginBodyState extends State<LoginBody> {
 
   final _formKey = GlobalKey<FormState>();
 
-  Auth auth = Auth();
+  final Auth _auth = Auth();
+  // final DioExceptions _dioExceptions = DioExceptions();
 
   bool _isLoading = false;
   bool _obscureText = true;
-
-  void _showErrorDialog(String msg) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('An error has occurred'),
-        content: Text(msg),
-        actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: const Text(
-              'Close',
-              style: TextStyle(color: AppColors.primary),
-            ),
-          )
-        ],
-      ),
-    );
-  }
 
   Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate() ?? false;
@@ -58,16 +42,17 @@ class _LoginBodyState extends State<LoginBody> {
     setState(() => _isLoading = true);
 
     try {
-      await auth.login(
+      await _auth.login(
         _emailController.text,
         _passwordController.text,
       );
 
       Get.offAllNamed('/home');
-    } on AuthException catch (e) {
-      _showErrorDialog(e.toString());
-    } catch (e) {
-      _showErrorDialog('An unexpected error occurred');
+    } on DioError {
+      // // Altereiaqui
+      // final errorMessage = _dioExceptions.fromDioError(e);
+      // print('Error message: $errorMessage');
+      // print(e);
     }
 
     setState(() => _isLoading = false);

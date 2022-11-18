@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:getx_lesson_one/validation/validation.dart';
 
+import '../../../exceptions/exceptions.dart';
 import '../../../models/models.dart';
 import '../../../theme/theme.dart';
 import '../../../components/components.dart';
@@ -27,26 +29,8 @@ class _SignUpBodyState extends State<SignUpBody> {
   bool _isLoading = false;
   bool _obscureText = true;
 
-  Auth auth = Auth();
-
-  void _showErrorDialog(String msg) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('An error has occurred'),
-        content: Text(msg),
-        actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: const Text(
-              'Close',
-              style: TextStyle(color: AppColors.primary),
-            ),
-          )
-        ],
-      ),
-    );
-  }
+  final Auth _auth = Auth();
+  // final DioExceptions _dioExceptions = DioExceptions();
 
   Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate() ?? false;
@@ -60,15 +44,15 @@ class _SignUpBodyState extends State<SignUpBody> {
     setState(() => _isLoading = true);
 
     try {
-      await auth.signup(
+      await _auth.signup(
         _emailController.text,
         _passwordController.text,
       );
       Get.offAllNamed('/login');
-    } on AuthException catch (e) {
-      _showErrorDialog(e.toString());
-    } catch (e) {
-      _showErrorDialog('An unexpected error occurred');
+    } on DioError catch (e) {
+      // Altereiaqui
+      // final errorMessage = _dioExceptions.fromDioError(e);
+      // print('Error message: $errorMessage');
     }
 
     setState(() => _isLoading = false);

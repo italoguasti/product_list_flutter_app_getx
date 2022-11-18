@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:getx_lesson_one/controllers/controllers.dart';
-import 'package:getx_lesson_one/theme/app_colors.dart';
 
 import '../models/models.dart';
 
@@ -27,9 +26,8 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: Center(
         child: SvgPicture.asset(
-          'assets/images/splash-logo.svg',
-          width: 60.0,
-          color: AppColors.primary,
+          'assets/images/splash-logo-guasti.svg',
+          width: 500.0,
         ),
       ),
     );
