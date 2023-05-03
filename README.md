@@ -4,8 +4,6 @@ A flutter project for studies developed using:
 
   - MVC
   - A little MVVM to learn
-  - Github
-  - pub.dev
   - Firebase Realtime DB
   - GetX (route management and state management)
   
